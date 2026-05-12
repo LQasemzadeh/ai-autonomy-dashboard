@@ -1,15 +1,15 @@
 # AI Autonomy Dashboard 🤖
 
-یک داشبورد مدیریتی پیشرفته برای نظارت و مدیریت سیستم‌های مبتنی بر هوش مصنوعی که با استفاده از **Next.js 15+** و **Tailwind CSS** توسعه یافته است.
+An advanced management dashboard for monitoring and managing AI-based systems, developed using **Next.js 15+** and **Tailwind CSS**.
 
-## 🚀 ویژگی‌ها
+## 🚀 Features
 
-- **داشبورد تعاملی:** نمایش داده‌ها با استفاده از نمودارهای ری‌اکتیو (Recharts).
-- **طراحی مدرن:** رابط کاربری زیبا و بهینه شده با Tailwind CSS 4.
-- **تایپ‌اسکریپت:** توسعه امن و پایدار با TypeScript.
-- **آیکون‌های Lucide:** استفاده از کتابخانه Lucide React برای آیکون‌های سیستمی.
+- **Interactive Dashboard:** Data visualization using reactive charts (Recharts).
+- **Modern Design:** Beautiful and optimized user interface with Tailwind CSS 4.
+- **TypeScript:** Secure and stable development with TypeScript.
+- **Lucide Icons:** System icons using the Lucide React library.
 
-## 🛠 تکنولوژی‌های استفاده شده
+## 🛠 Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org/)
 - **UI & Styling:** [Tailwind CSS](https://tailwindcss.com/)
@@ -17,28 +17,28 @@
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
 
-## 🏁 شروع به کار
+## 🏁 Getting Started
 
-برای اجرای پروژه در محیط محلی، مراحل زیر را دنبال کنید:
+To run the project locally, follow these steps:
 
-### ۱. نصب وابستگی‌ها
+### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-### ۲. اجرای سرور توسعه
+### 2. Run the Development Server
 ```bash
 npm run dev
 ```
-پس از اجرا، پروژه در آدرس [http://localhost:3000](http://localhost:3000) در دسترس خواهد بود.
+After running, the project will be available at [http://localhost:3000](http://localhost:3000).
 
-## 📦 اسکریپت‌های موجود
+## 📦 Available Scripts
 
-- `npm run dev`: اجرای پروژه در حالت توسعه.
-- `npm run build`: ساخت نسخه نهایی (Production build).
-- `npm run start`: اجرای نسخه ساخته شده.
-- `npm run lint`: بررسی کدهای پروژه برای رفع خطاهای احتمالی.
+- `npm run dev`: Runs the project in development mode.
+- `npm run build`: Builds the project for production.
+- `npm run start`: Runs the built production version.
+- `npm run lint`: Checks the project code for potential errors.
 
-## 📝 لایسنس
+## 📝 License
 
-این پروژه تحت لایسنس MIT منتشر شده است.
+This project is released under the MIT License.
