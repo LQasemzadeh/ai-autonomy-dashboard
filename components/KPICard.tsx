@@ -11,12 +11,27 @@ interface KPICardProps {
 }
 
 export const KPICard: React.FC<KPICardProps> = ({ label, value, trend, icon: Icon }) => {
+  const isPositiveMetric = label.toLowerCase().includes('success') || label.toLowerCase().includes('participants') || label.toLowerCase().includes('sessions');
+  const isNegativeMetric = label.toLowerCase().includes('error') || label.toLowerCase().includes('abandonment') || label.toLowerCase().includes('rejection') || label.toLowerCase().includes('override');
+
+  const iconColorClass = isPositiveMetric 
+    ? 'text-emerald-500 group-hover:text-emerald-600' 
+    : isNegativeMetric 
+      ? 'text-rose-500 group-hover:text-rose-600' 
+      : 'text-slate-400 group-hover:text-slate-500';
+
+  const iconBgClass = isPositiveMetric
+    ? 'bg-emerald-50 group-hover:bg-emerald-100'
+    : isNegativeMetric
+      ? 'bg-rose-50 group-hover:bg-rose-100'
+      : 'bg-slate-50 group-hover:bg-slate-100';
+
   return (
-    <div className="bg-white p-3.5 rounded-lg border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-200 group">
+    <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300 hover:-translate-y-0.5 group">
       <div className="flex justify-between items-start">
         <div>
-          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{label}</p>
-          <h3 className="text-xl font-bold text-slate-900 mt-0.5">{value}</h3>
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">{label}</p>
+          <h3 className="text-2xl font-bold text-slate-900 mt-1">{value}</h3>
           {trend && (
             <div className="flex items-center mt-1">
               <span className={`text-[10px] font-bold ${trend.isPositive ? 'text-emerald-600' : 'text-rose-600'}`}>
@@ -27,8 +42,8 @@ export const KPICard: React.FC<KPICardProps> = ({ label, value, trend, icon: Ico
           )}
         </div>
         {Icon && (
-          <div className="p-1.5 bg-slate-50 rounded group-hover:bg-slate-100 transition-colors">
-            <Icon size={16} className="text-slate-400 group-hover:text-slate-500" />
+          <div className={`p-1.5 rounded transition-colors ${iconBgClass}`}>
+            <Icon size={16} className={iconColorClass} />
           </div>
         )}
       </div>

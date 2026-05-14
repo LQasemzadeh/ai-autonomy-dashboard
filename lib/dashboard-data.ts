@@ -33,12 +33,17 @@ export function getKPIMetrics(data: DashboardData, condition: AutonomyCondition)
   let errorRate = 0;
   let nParticipants = 0;
   let interventionRate = 0;
+  let abandonmentRate = 0;
 
   if (condition === 'All') {
     // Success Rate (Completed / Total)
     const completed = outcomes.filter(o => o.outcome === 'Completed').reduce((acc, curr) => acc + curr.n, 0);
     const total = outcomes.reduce((acc, curr) => acc + curr.n, 0);
     successRate = total > 0 ? (completed / total) * 100 : 0;
+    
+    // Abandonment Rate
+    const abandoned = outcomes.filter(o => o.outcome === 'Abandoned').reduce((acc, curr) => acc + curr.n, 0);
+    abandonmentRate = total > 0 ? (abandoned / total) * 100 : 0;
     
     // Avg Time (Weighted average of means by session count if possible, but simple average for now)
     avgTime = timeStats.length > 0 
@@ -55,12 +60,23 @@ export function getKPIMetrics(data: DashboardData, condition: AutonomyCondition)
     interventionRate = totalSessions > 0 ? (withIntervention / totalSessions) * 100 : 0;
     
     nParticipants = data.metadata.total_participants;
+    return {
+      successRate: successRate.toFixed(1) + '%',
+      avgTime: avgTime.toFixed(1) + 'm',
+      errorRate: errorRate.toFixed(1) + '%',
+      interventionRate: interventionRate.toFixed(1) + '%',
+      abandonmentRate: abandonmentRate.toFixed(1) + '%',
+      nParticipants: nParticipants.toString(),
+      nSessions: totalSessions.toString()
+    };
   } else {
     // Specific condition metrics
     const conditionOutcomes = outcomes.filter(o => o.mode === condition);
     const completed = conditionOutcomes.find(o => o.outcome === 'Completed')?.n || 0;
+    const abandoned = conditionOutcomes.find(o => o.outcome === 'Abandoned')?.n || 0;
     const total = conditionOutcomes.reduce((acc, curr) => acc + curr.n, 0);
     successRate = total > 0 ? (completed / total) * 100 : 0;
+    abandonmentRate = total > 0 ? (abandoned / total) * 100 : 0;
 
     const conditionTime = timeStats.find(s => s.Condition === condition);
     avgTime = conditionTime?.Mean || 0;
@@ -73,13 +89,15 @@ export function getKPIMetrics(data: DashboardData, condition: AutonomyCondition)
 
     const conditionPart = data.participants.per_condition.find(p => p.mode === condition);
     nParticipants = conditionPart?.n_participants || 0;
-  }
 
-  return {
-    successRate: successRate.toFixed(1) + '%',
-    avgTime: avgTime.toFixed(1) + 'm',
-    errorRate: errorRate.toFixed(1) + '%',
-    interventionRate: interventionRate.toFixed(1) + '%',
-    nParticipants: nParticipants.toString()
-  };
+    return {
+      successRate: successRate.toFixed(1) + '%',
+      avgTime: avgTime.toFixed(1) + 'm',
+      errorRate: errorRate.toFixed(1) + '%',
+      interventionRate: interventionRate.toFixed(1) + '%',
+      abandonmentRate: abandonmentRate.toFixed(1) + '%',
+      nParticipants: nParticipants.toString(),
+      nSessions: total.toString()
+    };
+  }
 }

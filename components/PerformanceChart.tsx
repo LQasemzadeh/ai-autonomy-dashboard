@@ -54,7 +54,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data, select
   };
 
   return (
-    <div className="w-full h-[350px]">
+    <div className="w-full h-[350px] transition-all duration-300 hover:scale-[1.01]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={chartData}
@@ -92,7 +92,7 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data, select
             {chartData.map((entry, index) => (
               <Cell 
                 key={`cell-comp-${index}`} 
-                fill={selectedCondition === 'All' || selectedCondition === entry.name ? '#4f46e5' : '#c7d2fe'} 
+                fill={selectedCondition === 'All' || selectedCondition === entry.name ? '#10b981' : '#a7f3d0'} 
               />
             ))}
           </Bar>
