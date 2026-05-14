@@ -6,9 +6,11 @@ import { DashboardData, AutonomyCondition } from '@/types/dashboard';
 import { COLORS } from '@/lib/colors';
 import { KPICard } from '@/components/KPICard';
 import { DashboardCard } from '@/components/DashboardCard';
-import { CompactInterventionChart } from '@/components/CompactInterventionChart';
+import { InterventionFrequencyChart } from '@/components/InterventionFrequencyChart';
+import { InterventionType } from '@/components/InterventionType';
 import { MedianTimeChart } from '@/components/MedianTimeChart';
 import { ErrorAbandonmentChart } from '@/components/ErrorAbandonmentChart';
+import { KeyFindings } from '@/components/KeyFindings';
 import { 
   Users, 
   Activity, 
@@ -168,8 +170,12 @@ export default function Home() {
               />
             </div>
 
+            <div className="mt-12">
+              <KeyFindings />
+            </div>
+
             {/* Research Findings Overview Section */}
-            <div className="mt-8 space-y-8 pb-12">
+            <div className="mt-8 space-y-8 pb-12 relative z-0">
               {/* Task Performance Overview Section - Full Width */}
               <DashboardCard className="w-full">
                 <div className="p-6">
@@ -215,70 +221,47 @@ export default function Home() {
               {/* Intervention Behavior Overview Section - Full Width */}
               <DashboardCard className="w-full">
                 <div className="p-6">
-                  <div className="mb-6">
+                  <div className="mb-8">
                     <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Intervention Behavior Overview</h3>
                     <p className="text-[11px] text-slate-500 font-semibold mt-1 uppercase tracking-wider">
-                      Autonomy changed intervention behavior rather than removing it.
+                      Autonomy did not remove intervention; it reduced intervention frequency and changed the form of intervention.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-                    <div className="lg:col-span-2">
-                      <div className="h-[200px]">
-                        <CompactInterventionChart data={interventionData} />
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    {/* Block 1: Intervention Frequency */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-[12px] font-bold text-slate-700 uppercase tracking-tight">Median Intervention Count</h4>
+                        <div className="flex items-center gap-3">
+                           <span className="text-[10px] font-medium text-slate-400">By Condition</span>
+                           <div className="group relative">
+                             <div className="cursor-help bg-slate-100 rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold text-slate-500">i</div>
+                             <div className="absolute bottom-full right-0 mb-2 w-48 p-2 bg-slate-800 text-white text-[10px] rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                               Intervention Occurrence (Any intervention in session):
+                               <br/>Manual: 92.5%, Assistance: 94.4%, Execution: 90.6%
+                             </div>
+                           </div>
+                        </div>
+                      </div>
+                      <InterventionFrequencyChart />
+                      <div className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-300">
+                        <p className="text-[10px] text-slate-600 font-medium leading-relaxed">
+                          Intervention frequency decreased significantly under Assistance and Execution conditions compared to Manual mode.
+                        </p>
                       </div>
                     </div>
-                    
-                    <div className="flex flex-col justify-between space-y-8">
-                      <div className="grid grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.1em]">Occurrence</p>
-                          <div className="space-y-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#3B82F6]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[0]?.occurrence}%</p>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#6366F1]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[1]?.occurrence}%</p>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#10B981]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[2]?.occurrence}%</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.1em]">Median Count</p>
-                          <div className="space-y-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#3B82F6]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[0]?.medianCount}</p>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#6366F1]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[1]?.medianCount}</p>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-full bg-[#10B981]"></span>
-                              <p className="text-[10px] font-bold text-slate-900">{interventionData[2]?.medianCount}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div className="space-y-2">
-                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.1em]">Interaction Type</p>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-100 uppercase">Edits</span>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 uppercase">Hybrid</span>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 uppercase">Override</span>
-                        </div>
+                    {/* Block 2: Intervention Type */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-[12px] font-bold text-slate-700 uppercase tracking-tight">Intervention Type</h4>
+                        <span className="text-[10px] font-medium text-slate-400">Frequency (%)</span>
                       </div>
-
-                      <div className="p-3 bg-slate-50 rounded-r-lg border-l-4 border-[#6366F1]">
-                        <p className="text-[10px] text-slate-700 font-semibold italic leading-relaxed">
-                          “Intervention occurrence remained high across all conditions, but intervention frequency was significantly lower in Assistance and Execution.”
+                      <InterventionType />
+                      <div className="p-3 bg-slate-50 rounded-lg border-l-4 border-slate-300">
+                        <p className="text-[10px] text-slate-600 font-medium leading-relaxed">
+                          Shift in behavior observed: from simple field edits toward override-based interventions as autonomy increased.
                         </p>
                       </div>
                     </div>

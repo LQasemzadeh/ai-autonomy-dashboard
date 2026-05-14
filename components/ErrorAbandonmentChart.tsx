@@ -48,7 +48,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
         <BarChart
           data={data}
           margin={{ top: 20, right: 30, left: -15, bottom: 5 }}
-          barGap={8}
+          barGap={4}
           onMouseMove={(state) => {
             if (state && state.activeLabel) {
               setHoveredCategory(state.activeLabel);
@@ -132,7 +132,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
             dataKey="errors" 
             name="Detected Errors" 
             radius={[4, 4, 0, 0]} 
-            barSize={20}
+            barSize={25}
             isAnimationActive={false}
           >
             {data.map((entry, index) => (
@@ -143,7 +143,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
             dataKey="abandonment" 
             name="Abandonment" 
             radius={[4, 4, 0, 0]} 
-            barSize={20}
+            barSize={25}
             isAnimationActive={false}
           >
             {data.map((entry, index) => (
