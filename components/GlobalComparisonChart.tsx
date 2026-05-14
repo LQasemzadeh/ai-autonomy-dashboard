@@ -13,6 +13,7 @@ import {
   Cell
 } from 'recharts';
 import { AutonomyCondition, DashboardData } from '@/types/dashboard';
+import { COLORS, getConditionColor } from '@/lib/colors';
 
 interface GlobalComparisonChartProps {
   data: DashboardData;
@@ -73,21 +74,21 @@ export const GlobalComparisonChart: React.FC<GlobalComparisonChartProps> = ({ da
           margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
           barGap={2}
         >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={COLORS.gridLines} />
           <XAxis 
             dataKey="name" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
+            tick={{ fill: COLORS.neutral, fontSize: 10, fontWeight: 600 }}
             dy={5}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 9 }}
+            tick={{ fill: COLORS.neutral, fontSize: 9 }}
             unit="%"
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: COLORS.background }} />
           <Legend 
             verticalAlign="top" 
             align="right" 
@@ -97,17 +98,17 @@ export const GlobalComparisonChart: React.FC<GlobalComparisonChartProps> = ({ da
           />
           <Bar name="Completion" dataKey="Completion" radius={[2, 2, 0, 0]} barSize={20}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-c-${index}`} fill="#10b981" fillOpacity={getBarOpacity(entry.name)} />
+              <Cell key={`cell-c-${index}`} fill={getConditionColor(entry.name)} fillOpacity={getBarOpacity(entry.name)} />
             ))}
           </Bar>
           <Bar name="Abandonment" dataKey="Abandonment" radius={[2, 2, 0, 0]} barSize={20}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-a-${index}`} fill="#f43f5e" fillOpacity={getBarOpacity(entry.name)} />
+              <Cell key={`cell-a-${index}`} fill={getConditionColor(entry.name)} fillOpacity={getBarOpacity(entry.name) * 0.7} />
             ))}
           </Bar>
           <Bar name="Intervention" dataKey="Intervention" radius={[2, 2, 0, 0]} barSize={20}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-i-${index}`} fill="#6366f1" fillOpacity={getBarOpacity(entry.name)} />
+              <Cell key={`cell-i-${index}`} fill={getConditionColor(entry.name)} fillOpacity={getBarOpacity(entry.name) * 0.4} />
             ))}
           </Bar>
         </BarChart>

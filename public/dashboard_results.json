@@ -23,15 +23,15 @@
     "sessions_per_condition": [
       {
         "mode": "Assistance",
-        "n_sessions": 75
+        "n_sessions": 54
       },
       {
         "mode": "Execution",
-        "n_sessions": 76
+        "n_sessions": 53
       },
       {
         "mode": "Manual",
-        "n_sessions": 76
+        "n_sessions": 53
       }
     ]
   },

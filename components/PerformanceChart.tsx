@@ -13,6 +13,7 @@ import {
   Cell
 } from 'recharts';
 import { AutonomyCondition, DashboardData } from '@/types/dashboard';
+import { COLORS, getConditionColor } from '@/lib/colors';
 
 interface PerformanceChartProps {
   data: DashboardData;
@@ -67,21 +68,21 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data, select
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           barGap={4}
         >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={COLORS.gridLines} />
           <XAxis 
             dataKey="name" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
+            tick={{ fill: COLORS.neutral, fontSize: 10, fontWeight: 600 }}
             dy={8}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 10 }}
+            tick={{ fill: COLORS.neutral, fontSize: 10 }}
             unit="%"
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: COLORS.background }} />
           <Legend 
             verticalAlign="top" 
             align="right" 
@@ -99,7 +100,8 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data, select
             {chartData.map((entry, index) => (
               <Cell 
                 key={`cell-comp-${index}`} 
-                fill={selectedCondition === 'All' || selectedCondition === entry.name ? '#10b981' : '#d1fae5'} 
+                fill={getConditionColor(entry.name)} 
+                fillOpacity={selectedCondition === 'All' || selectedCondition === entry.name ? 1 : 0.3}
               />
             ))}
           </Bar>
@@ -113,7 +115,8 @@ export const PerformanceChart: React.FC<PerformanceChartProps> = ({ data, select
             {chartData.map((entry, index) => (
               <Cell 
                 key={`cell-aban-${index}`} 
-                fill={selectedCondition === 'All' || selectedCondition === entry.name ? '#f43f5e' : '#ffe4e6'} 
+                fill={getConditionColor(entry.name)} 
+                fillOpacity={selectedCondition === 'All' || selectedCondition === entry.name ? 0.6 : 0.2}
               />
             ))}
           </Bar>

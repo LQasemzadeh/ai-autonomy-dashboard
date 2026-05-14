@@ -13,6 +13,7 @@ import {
   Cell
 } from 'recharts';
 import { AutonomyCondition, DashboardData } from '@/types/dashboard';
+import { COLORS, getConditionColor } from '@/lib/colors';
 
 interface InterventionBehaviorChartProps {
   data: DashboardData;
@@ -60,11 +61,12 @@ export const InterventionBehaviorChart: React.FC<InterventionBehaviorChartProps>
           <p className="font-bold text-slate-800 mb-2">{label}</p>
           {payload.map((entry: any, index: number) => {
             const isNA = entry.payload[`${entry.dataKey}_na`];
+            const entryColor = entry.color || getConditionColor(entry.dataKey);
             return (
               <div key={index} className="flex flex-col mb-2 last:mb-0">
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-slate-500 font-medium">{entry.name}:</span>
-                  <span className="font-bold" style={{ color: isNA ? '#94a3b8' : entry.color }}>
+                  <span className="font-bold" style={{ color: isNA ? COLORS.neutral : entryColor }}>
                     {isNA ? 'Not Applicable' : `${entry.value.toFixed(1)}%`}
                   </span>
                 </div>
@@ -82,12 +84,6 @@ export const InterventionBehaviorChart: React.FC<InterventionBehaviorChartProps>
     return null;
   };
 
-  const colors: Record<string, string> = {
-    'Manual': '#64748b',
-    'Assistance': '#6366f1',
-    'Execution': '#10b981'
-  };
-
   return (
     <div className="w-full h-[350px] transition-all duration-300 hover:scale-[1.01]">
       <ResponsiveContainer width="100%" height="100%">
@@ -96,20 +92,20 @@ export const InterventionBehaviorChart: React.FC<InterventionBehaviorChartProps>
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           barGap={4}
         >
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={COLORS.gridLines} />
           <XAxis 
             dataKey="name" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
+            tick={{ fill: COLORS.neutral, fontSize: 10, fontWeight: 600 }}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94a3b8', fontSize: 9 }}
+            tick={{ fill: COLORS.neutral, fontSize: 9 }}
             unit="%"
           />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+          <Tooltip content={<CustomTooltip />} cursor={{ fill: COLORS.background }} />
           <Legend 
             verticalAlign="top" 
             align="right" 
@@ -122,15 +118,15 @@ export const InterventionBehaviorChart: React.FC<InterventionBehaviorChartProps>
               key={mode}
               name={mode} 
               dataKey={mode} 
-              fill={colors[mode]} 
+              fill={getConditionColor(mode)} 
               radius={[2, 2, 0, 0]}
               barSize={selectedCondition === 'All' ? 16 : 48}
             >
               {chartData.map((entry, index) => (
                 <Cell 
                   key={`cell-${mode}-${index}`}
-                  fill={entry[`${mode}_na`] ? '#f8fafc' : colors[mode]}
-                  stroke={entry[`${mode}_na`] ? '#f1f5f9' : 'none'}
+                  fill={entry[`${mode}_na`] ? COLORS.background : getConditionColor(mode)}
+                  stroke={entry[`${mode}_na`] ? COLORS.gridLines : 'none'}
                 />
               ))}
             </Bar>
