@@ -58,6 +58,13 @@ export interface InterventionByMode {
   label: string;
 }
 
+export interface InterventionTypeProportion {
+  mode: string;
+  intervention_type: 'Edit' | 'Override' | 'Reject';
+  proportion: number;
+  label: string;
+}
+
 export interface DashboardData {
   metadata: DashboardMetadata;
   participants: {
@@ -77,6 +84,9 @@ export interface DashboardData {
   };
   intervention_occurrence: {
     by_mode: InterventionByMode[];
+  };
+  intervention_types: {
+    proportions_by_mode: InterventionTypeProportion[];
   };
 }
 

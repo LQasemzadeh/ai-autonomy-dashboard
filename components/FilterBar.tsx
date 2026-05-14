@@ -13,10 +13,10 @@ export const FilterBar: React.FC<FilterBarProps> = ({ currentCondition, onCondit
   };
 
   return (
-    <div className="bg-white border-b border-slate-200 px-8 py-2.5 flex flex-wrap items-center gap-6 sticky top-0 z-10 shadow-sm shadow-slate-900/5">
+    <div className="bg-white border-b border-slate-200 px-8 py-2 flex flex-wrap items-center gap-6 sticky top-0 z-10 shadow-sm shadow-slate-900/5">
       <div className="flex items-center gap-2 text-slate-400 mr-2 border-r border-slate-100 pr-6">
-        <Filter size={14} />
-        <span className="text-[10px] font-bold uppercase tracking-wider">Filters</span>
+        <Filter size={12} />
+        <span className="text-[9px] font-bold uppercase tracking-widest">Filters</span>
       </div>
 
       <div className="flex items-center gap-2.5">
