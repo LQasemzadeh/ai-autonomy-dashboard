@@ -85,6 +85,9 @@ export interface DashboardData {
   intervention_occurrence: {
     by_mode: InterventionByMode[];
   };
+  intervention_count: {
+    summary: CompletionTimeStats[];
+  };
   intervention_types: {
     proportions_by_mode: InterventionTypeProportion[];
   };

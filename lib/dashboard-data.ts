@@ -88,7 +88,8 @@ export function getKPIMetrics(data: DashboardData, condition: AutonomyCondition)
       suggestionRejectionRate: suggestionRejectionRate.toFixed(1) + '%',
       manualOverrideRate: manualOverrideRate.toFixed(1) + '%',
       nParticipants: nParticipants.toString(),
-      nSessions: data.metadata.total_started_sessions.toString()
+      nSessions: data.metadata.total_started_sessions.toString(),
+      raw: data
     };
   } else {
     // Specific condition metrics
@@ -128,7 +129,8 @@ export function getKPIMetrics(data: DashboardData, condition: AutonomyCondition)
       suggestionRejectionRate: isNA_Rejection ? 'N/A' : suggestionRejectionRate.toFixed(1) + '%',
       manualOverrideRate: isNA_Override ? 'N/A' : manualOverrideRate.toFixed(1) + '%',
       nParticipants: nParticipants.toString(),
-      nSessions: total.toString()
+      nSessions: total.toString(),
+      raw: data
     };
   }
 }

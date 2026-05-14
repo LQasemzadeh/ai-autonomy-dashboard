@@ -1,7 +1,7 @@
 export const COLORS = {
   // Condition colors
-  manual: '#3B82F6',    // blue
-  assistance: '#6366F1',  // indigo
+  manual: '#2563EB',    // darker blue (changed from #3B82F6)
+  assistance: '#8B5CF6',  // distinct purple (changed from #6366F1)
   execution: '#10B981',   // emerald green
 
   // Outcome / metric colors
