@@ -70,27 +70,32 @@ export const CompletionTimeBoxPlot = () => {
   const getY = (value: number) => 100 - (value / maxVal) * 100;
 
   return (
-    <div ref={containerRef} className="w-full h-[300px] mt-4 relative">
+    <div ref={containerRef} className="w-full h-[280px] mt-4 relative">
+      {/* Y Axis Label */}
+      <div className="absolute -left-12 top-1/2 -rotate-90 origin-center text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
+        Completion time (seconds)
+      </div>
+
       {/* Grid Lines */}
       <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
         {[0, 25, 50, 75, 100].map((tick) => (
           <div key={tick} className="w-full border-t border-slate-100 flex items-center h-0 relative">
-            <span className="absolute -left-8 text-[10px] text-slate-400 font-medium">{tick}s</span>
+            <span className="absolute -left-10 text-[10px] text-slate-400 font-bold">{tick}s</span>
           </div>
         ))}
       </div>
 
-      <div className="absolute inset-0 flex justify-around items-end pb-8 pt-4 px-4">
+      <div className="absolute inset-0 flex justify-around items-end pb-8 pt-4 px-8">
         {data.map((item, idx) => {
           const jitterValues = generateJitter(item.points.length);
           
           return (
             <div key={item.condition} className="flex-1 flex flex-col items-center relative h-full">
               {/* Box and Whisker */}
-              <div className="relative w-12 h-full flex flex-col items-center">
+              <div className="relative w-16 h-full flex flex-col items-center">
                 {/* Vertical Line (Whisker) */}
                 <div 
-                  className="absolute w-px bg-slate-300 transition-all duration-1000 delay-300"
+                  className="absolute w-[2px] bg-slate-200 transition-all duration-1000 delay-300"
                   style={{ 
                     top: `${getY(item.max)}%`, 
                     bottom: `${100 - getY(item.min)}%`,
@@ -100,13 +105,13 @@ export const CompletionTimeBoxPlot = () => {
 
                 {/* Top Whisker Cap */}
                 <div 
-                  className="absolute w-4 h-px bg-slate-400"
+                  className="absolute w-6 h-[2px] bg-slate-300"
                   style={{ top: `${getY(item.max)}%`, opacity: isVisible ? 1 : 0 }}
                 />
                 
                 {/* Bottom Whisker Cap */}
                 <div 
-                  className="absolute w-4 h-px bg-slate-400"
+                  className="absolute w-6 h-[2px] bg-slate-300"
                   style={{ bottom: `${100 - getY(item.min)}%`, opacity: isVisible ? 1 : 0 }}
                 />
 
@@ -116,19 +121,19 @@ export const CompletionTimeBoxPlot = () => {
                   style={{ 
                     top: `${getY(isVisible ? item.q3 : item.median)}%`, 
                     height: isVisible ? `${(item.q3 - item.q1) / maxVal * 100}%` : '0%',
-                    backgroundColor: `${item.color}20`,
-                    border: `2px solid ${item.color}`,
+                    backgroundColor: `${item.color}15`,
+                    border: `2.5px solid ${item.color}`,
                     opacity: isVisible ? 1 : 0
                   }}
                 />
 
                 {/* Median Line */}
                 <div 
-                  className="absolute w-full h-[3px] bg-slate-700 rounded-full z-10 transition-all duration-[2500ms]"
+                  className="absolute w-full h-[3px] bg-slate-800 rounded-full z-10 transition-all duration-[2500ms]"
                   style={{ 
                     top: `${getY(item.median)}%`,
                     opacity: isVisible ? 1 : 0,
-                    transform: `translateY(-50%) scaleX(${isVisible ? 1.1 : 0})`
+                    transform: `translateY(-50%) scaleX(${isVisible ? 1 : 0})`
                   }}
                 />
 
@@ -141,7 +146,7 @@ export const CompletionTimeBoxPlot = () => {
                       top: `${getY(pt)}%`,
                       left: `${50 + jitterValues[pIdx] * 100}%`,
                       backgroundColor: item.color,
-                      opacity: isVisible ? 0.4 : 0,
+                      opacity: isVisible ? 0.3 : 0,
                       transform: `translate(-50%, -50%) scale(${isVisible ? 1 : 0})`,
                       transitionDelay: `${pIdx * 50}ms`
                     }}
@@ -150,7 +155,7 @@ export const CompletionTimeBoxPlot = () => {
               </div>
 
               {/* X Axis Label */}
-              <div className="absolute -bottom-6 text-xs font-bold text-slate-600">
+              <div className="absolute -bottom-8 text-xs font-black text-slate-700 tracking-tight">
                 {item.condition}
               </div>
             </div>

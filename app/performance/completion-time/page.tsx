@@ -132,16 +132,16 @@ export default function CompletionTimeAnalysis() {
 
         {/* SECTION 2 — DISTRIBUTION ANALYSIS */}
         <DashboardCard title="Completion Time Distribution">
-          <div className="px-4">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[11px] text-slate-500 font-medium">Boxplot with jittered data points (N=160)</p>
+          <div className="px-12 py-4">
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-[11px] text-slate-500 font-medium italic">Boxplot with jittered data points (N=160)</p>
             </div>
             <CompletionTimeBoxPlot />
           </div>
-          <div className="mt-8 mb-2 mx-4 p-4 bg-emerald-50/50 border border-emerald-100 rounded-xl flex items-center gap-3">
-            <Info className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-            <p className="text-[13px] text-emerald-800 font-medium leading-snug">
-              Execution showed the lowest and most compact completion time distribution, suggesting more efficient task execution under higher autonomy.
+          <div className="mt-4 mb-2 mx-auto max-w-[500px] p-2 bg-emerald-50/50 border border-emerald-100 rounded-lg flex items-center justify-center gap-2">
+            <Info className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <p className="text-[12px] text-emerald-800 font-medium leading-snug">
+              Execution showed the lowest and most compact completion-time distribution.
             </p>
           </div>
         </DashboardCard>
