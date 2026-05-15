@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  LabelList,
 } from 'recharts';
 import { COLORS } from '@/lib/colors';
 
@@ -75,7 +76,7 @@ export const ConditionDistributionChart: React.FC<ConditionDistributionChartProp
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}
-            margin={{ top: 10, right: 10, left: -25, bottom: 0 }}
+            margin={{ top: 20, right: 10, left: -25, bottom: 0 }}
             barSize={45}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -114,6 +115,14 @@ export const ConditionDistributionChart: React.FC<ConditionDistributionChartProp
               animationDuration={3500}
               animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
             >
+              <LabelList 
+                dataKey="value" 
+                position="top" 
+                fill="#64748b" 
+                fontSize={11} 
+                fontWeight={700}
+                offset={10}
+              />
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={getConditionColor(entry.name)} />
               ))}

@@ -32,11 +32,14 @@ export const KPICard: React.FC<KPICardProps> = ({
 
   const getIconColors = () => {
     if (gradient !== 'none') return { color: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.25)' };
-    if (isSuccessMetric) return { color: COLORS.success, bg: 'rgba(16, 185, 129, 0.08)' };
-    if (isErrorMetric) return { color: COLORS.error, bg: 'rgba(244, 63, 94, 0.08)' };
-    if (isAbandonmentMetric || isNotStartedMetric) return { color: COLORS.abandonment, bg: 'rgba(249, 115, 22, 0.08)' };
-    if (isInterventionMetric) return { color: COLORS.intervention, bg: 'rgba(59, 130, 246, 0.08)' };
-    return { color: COLORS.neutral, bg: 'rgba(148, 163, 184, 0.08)' };
+    if (isSuccessMetric) return { color: COLORS.success, bg: 'rgba(16, 185, 129, 0.12)' };
+    if (isErrorMetric) return { color: COLORS.error, bg: 'rgba(244, 63, 94, 0.12)' };
+    if (isAbandonmentMetric || isNotStartedMetric) return { color: COLORS.abandonment, bg: 'rgba(249, 115, 22, 0.12)' };
+    if (isInterventionMetric) return { color: COLORS.intervention, bg: 'rgba(59, 130, 246, 0.12)' };
+    if (label.toLowerCase().includes('sessions')) return { color: '#2563EB', bg: 'rgba(37, 99, 235, 0.12)' };
+    if (label.toLowerCase().includes('conditions')) return { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.12)' };
+    if (label.toLowerCase().includes('participants')) return { color: '#1E293B', bg: 'rgba(30, 41, 59, 0.12)' };
+    return { color: COLORS.neutral, bg: 'rgba(148, 163, 184, 0.12)' };
   };
 
   const getGradientClass = () => {
@@ -58,8 +61,7 @@ export const KPICard: React.FC<KPICardProps> = ({
   return (
     <div className={`${getGradientClass()} p-[22px] rounded-xl border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group h-[120px] flex flex-col justify-center relative`}>
       <div className="flex flex-col justify-center h-full">
-        <p className={`text-[12px] font-extrabold ${isDark ? 'text-[#0F172A]' : 'text-[#0F172A]'} uppercase tracking-[0.02em] leading-none mb-1.5`}>{label}</p>
-        <div className="flex items-baseline gap-1.5 mt-0.5">
+        <div className="flex items-baseline gap-1.5 mb-1.5">
           <h3 className="text-2xl font-bold text-slate-900 leading-none tracking-tight">{value}</h3>
           {valueLabel && (
             <span className={`text-[11px] font-medium ${isDark ? 'text-slate-700' : 'text-slate-500'} leading-none`}>
@@ -67,6 +69,7 @@ export const KPICard: React.FC<KPICardProps> = ({
             </span>
           )}
         </div>
+        <p className={`text-[12px] font-bold ${isDark ? 'text-[#0F172A]' : 'text-[#475569]'} tracking-[0.01em] leading-none`}>{label}</p>
         {subtitle && (
           <p className="text-[11px] mt-2.5 leading-tight">
             {(() => {
@@ -93,8 +96,8 @@ export const KPICard: React.FC<KPICardProps> = ({
         )}
       </div>
       {Icon && (
-        <div className="absolute top-[18px] right-[18px] p-2 rounded-md transition-colors opacity-80" style={{ backgroundColor: bg }}>
-          <Icon size={12} style={{ color: color }} />
+        <div className="absolute top-[18px] right-[18px] p-2 rounded-lg transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: bg }}>
+          <Icon size={18} style={{ color: color }} strokeWidth={2.5} />
         </div>
       )}
     </div>

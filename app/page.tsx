@@ -140,7 +140,6 @@ export default function Home() {
               <KPICard 
                 label="Manual" 
                 value={data.participants.per_condition.find(p => p.mode === 'Manual')?.n_participants.toString() || "0"} 
-                valueLabel="participants"
                 subtitle={`${sessionMetrics.manual} analyzed sessions`}
                 icon={Hand}
                 gradient="blue"
@@ -148,7 +147,6 @@ export default function Home() {
               <KPICard 
                 label="Assistance" 
                 value={data.participants.per_condition.find(p => p.mode === 'Assistance')?.n_participants.toString() || "0"} 
-                valueLabel="participants"
                 subtitle={`${sessionMetrics.assistance} analyzed sessions`}
                 icon={Wand2}
                 gradient="purple"
@@ -156,7 +154,6 @@ export default function Home() {
               <KPICard 
                 label="Execution" 
                 value={data.participants.per_condition.find(p => p.mode === 'Execution')?.n_participants.toString() || "0"} 
-                valueLabel="participants"
                 subtitle={`${sessionMetrics.execution} analyzed sessions`}
                 icon={Rocket}
                 gradient="green"
@@ -164,7 +161,6 @@ export default function Home() {
               <KPICard 
                 label="Total Study Sample" 
                 value={data.metadata.total_participants.toString()} 
-                valueLabel="total participants"
                 subtitle={`${data.metadata.total_started_sessions} analyzed sessions`}
                 icon={Users}
               />
