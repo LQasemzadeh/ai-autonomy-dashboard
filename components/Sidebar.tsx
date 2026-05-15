@@ -8,7 +8,12 @@ import {
   AlertTriangle, 
   HandMetal, 
   Database, 
-  BookOpen 
+  BookOpen,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  Skull,
+  XCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,7 +21,16 @@ import { usePathname } from 'next/navigation';
 const menuItems = [
   { name: 'Overview', icon: LayoutDashboard, href: '/' },
   { name: 'Sample & Progression', icon: Users, href: '/sample-progression' },
-  { name: 'Performance', icon: BarChart3, href: '#' },
+  { 
+    name: 'Performance', 
+    icon: BarChart3, 
+    href: '#',
+    subItems: [
+      { name: 'Completion Time', icon: Clock, href: '#' },
+      { name: 'Detected Error', icon: Skull, href: '#' },
+      { name: 'Abandonment', icon: XCircle, href: '#' },
+    ]
+  },
   { name: 'Errors & Abandonment', icon: AlertTriangle, href: '#' },
   { name: 'Intervention Behavior', icon: HandMetal, href: '#' },
   { name: 'Data Explorer', icon: Database, href: '#' },
@@ -25,6 +39,15 @@ const menuItems = [
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const [openMenus, setOpenMenus] = React.useState<string[]>(['Performance']);
+
+  const toggleMenu = (name: string) => {
+    setOpenMenus(prev => 
+      prev.includes(name) 
+        ? prev.filter(m => m !== name) 
+        : [...prev, name]
+    );
+  };
 
   return (
     <aside className="w-56 bg-slate-900 text-slate-300 h-screen fixed left-0 top-0 flex flex-col border-r border-slate-800">
@@ -36,27 +59,72 @@ export const Sidebar = () => {
         
         <nav className="space-y-1.5">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href;
+            const hasSubItems = item.subItems && item.subItems.length > 0;
+            const isOpen = openMenus.includes(item.name);
+            const isActive = pathname === item.href || (hasSubItems && item.subItems?.some(sub => pathname === sub.href));
+            
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`group relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all duration-300 ease-in-out ${
-                  isActive 
-                    ? 'bg-blue-500/10 text-blue-400 font-normal shadow-sm shadow-blue-500/5' 
-                    : 'text-slate-500 hover:bg-slate-800/40 hover:text-slate-300 font-light'
-                }`}
-              >
-                {isActive && (
-                  <div className="absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-blue-500 rounded-full" />
+              <div key={item.name} className="space-y-1">
+                {hasSubItems ? (
+                  <button
+                    onClick={() => toggleMenu(item.name)}
+                    className={`w-full group relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all duration-300 ease-in-out ${
+                      isActive 
+                        ? 'bg-blue-500/10 text-blue-400 font-normal' 
+                        : 'text-slate-500 hover:bg-slate-800/40 hover:text-slate-300 font-light'
+                    }`}
+                  >
+                    <item.icon 
+                      size={18} 
+                      strokeWidth={2} 
+                      className={`flex-shrink-0 ${isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} 
+                    />
+                    <span className="flex-1 text-left">{item.name}</span>
+                    {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={`group relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all duration-300 ease-in-out ${
+                      isActive 
+                        ? 'bg-blue-500/10 text-blue-400 font-normal shadow-sm shadow-blue-500/5' 
+                        : 'text-slate-500 hover:bg-slate-800/40 hover:text-slate-300 font-light'
+                    }`}
+                  >
+                    {isActive && (
+                      <div className="absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-blue-500 rounded-full" />
+                    )}
+                    <item.icon 
+                      size={18} 
+                      strokeWidth={2} 
+                      className={`flex-shrink-0 ${isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} 
+                    />
+                    {item.name}
+                  </Link>
                 )}
-                <item.icon 
-                  size={18} 
-                  strokeWidth={2} 
-                  className={`flex-shrink-0 ${isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} 
-                />
-                {item.name}
-              </Link>
+
+                {hasSubItems && isOpen && (
+                  <div className="ml-4 pl-3 border-l border-slate-800 space-y-1 mt-1">
+                    {item.subItems?.map((subItem) => {
+                      const isSubActive = pathname === subItem.href;
+                      return (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          className={`group flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-[11px] transition-all duration-200 ${
+                            isSubActive
+                              ? 'text-blue-400 font-normal'
+                              : 'text-slate-500 hover:text-slate-300 font-light'
+                          }`}
+                        >
+                          <subItem.icon size={14} className={isSubActive ? 'text-blue-400' : 'text-slate-600 group-hover:text-slate-400'} />
+                          {subItem.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
