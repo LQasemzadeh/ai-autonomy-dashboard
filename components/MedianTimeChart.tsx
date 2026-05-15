@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   LineChart,
   Line,
@@ -25,7 +25,32 @@ interface MedianTimeChartProps {
   data: TimeData[];
 }
 
+
 export const MedianTimeChart: React.FC<MedianTimeChartProps> = ({ data }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (chartRef.current) {
+      observer.observe(chartRef.current);
+    }
+
+    return () => {
+      if (chartRef.current) {
+        observer.unobserve(chartRef.current);
+      }
+    };
+  }, []);
+
   const getConditionColor = (name: string) => {
     switch (name.toLowerCase()) {
       case 'manual': return COLORS.manual;
@@ -36,7 +61,7 @@ export const MedianTimeChart: React.FC<MedianTimeChartProps> = ({ data }) => {
   };
 
   return (
-    <div className="w-full h-[200px]">
+    <div ref={chartRef} className="w-full h-[200px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
@@ -90,12 +115,15 @@ export const MedianTimeChart: React.FC<MedianTimeChartProps> = ({ data }) => {
             }}
           />
           <Line
+            key={`line-animated-${isVisible}`}
             type="linear"
             dataKey="completionTime"
             stroke="url(#lineGradient)"
             strokeWidth={3}
             strokeDasharray="5 5"
-            isAnimationActive={false}
+            isAnimationActive={isVisible}
+            animationDuration={3500}
+            animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
             dot={(props: any) => {
               const { cx, cy, payload } = props;
               const color = getConditionColor(payload.name);

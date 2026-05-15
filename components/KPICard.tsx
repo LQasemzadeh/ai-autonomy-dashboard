@@ -26,6 +26,7 @@ export const KPICard: React.FC<KPICardProps> = ({
   const isSuccessMetric = label.toLowerCase().includes('success');
   const isErrorMetric = label.toLowerCase().includes('error');
   const isAbandonmentMetric = label.toLowerCase().includes('abandonment');
+  const isNotStartedMetric = label.toLowerCase().includes('not started');
   const isInterventionMetric = label.toLowerCase().includes('intervention') || label.toLowerCase().includes('rejection') || label.toLowerCase().includes('override');
   const isNeutralMetric = label.toLowerCase().includes('time') || label.toLowerCase().includes('participants') || label.toLowerCase().includes('sessions');
 
@@ -33,7 +34,7 @@ export const KPICard: React.FC<KPICardProps> = ({
     if (gradient !== 'none') return { color: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.25)' };
     if (isSuccessMetric) return { color: COLORS.success, bg: 'rgba(16, 185, 129, 0.08)' };
     if (isErrorMetric) return { color: COLORS.error, bg: 'rgba(244, 63, 94, 0.08)' };
-    if (isAbandonmentMetric) return { color: COLORS.abandonment, bg: 'rgba(249, 115, 22, 0.08)' };
+    if (isAbandonmentMetric || isNotStartedMetric) return { color: COLORS.abandonment, bg: 'rgba(249, 115, 22, 0.08)' };
     if (isInterventionMetric) return { color: COLORS.intervention, bg: 'rgba(59, 130, 246, 0.08)' };
     return { color: COLORS.neutral, bg: 'rgba(148, 163, 184, 0.08)' };
   };

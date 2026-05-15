@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { COLORS } from '@/lib/colors';
 
 const conditions = ['Manual', 'Assistance', 'Execution'] as const;
@@ -14,6 +14,29 @@ const data: Record<string, Record<string, string | number>> = {
 
 export const InterventionType: React.FC = () => {
   const [hoveredCell, setHoveredCell] = useState<{ type: string; condition: string } | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   const getConditionColor = (condition: typeof conditions[number]) => {
     switch (condition) {
@@ -33,7 +56,7 @@ export const InterventionType: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
+    <div ref={containerRef} className="w-full">
       {/* Matrix Header */}
       <div className="grid grid-cols-[110px_1fr_1fr_1fr] border-b border-slate-300 pb-2 mb-0">
         <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-end pb-1">Type \ Mode</div>
@@ -59,7 +82,11 @@ export const InterventionType: React.FC = () => {
               
               // Gradient calculation: high value = more saturated/stronger
               const intensity = numericValue / 100;
-              const opacity = isUnavailable ? 1 : 0.15 + (intensity * 0.85);
+              const baseOpacity = isUnavailable ? 1 : 0.15 + (intensity * 0.85);
+              
+              // Animation logic
+              const opacity = isVisible ? baseOpacity : 0;
+              const scale = isVisible ? 1 : 0.95;
               
               const isHovered = hoveredCell?.type === type && hoveredCell?.condition === condition;
               const isLastColumn = condIdx === conditions.length - 1;
@@ -67,14 +94,16 @@ export const InterventionType: React.FC = () => {
               return (
                 <div 
                   key={`${type}-${condition}`}
-                  className={`relative h-14 flex items-center justify-center transition-all duration-200 cursor-default border-r border-slate-300 last:border-r-0 ${isHovered ? 'z-[100]' : 'z-0'}`}
+                  className={`relative h-14 flex items-center justify-center transition-all cursor-default border-r border-slate-300 last:border-r-0 ${isHovered ? 'z-[100]' : 'z-0'}`}
                   onMouseEnter={() => setHoveredCell({ type, condition })}
                   onMouseLeave={() => setHoveredCell(null)}
                   style={{ 
                     backgroundColor: isUnavailable ? '#e2e8f0' : color,
                     opacity: isHovered ? 1 : opacity,
-                    transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+                    transform: isHovered ? 'scale(1.02)' : `scale(${scale})`,
                     boxShadow: isHovered ? '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' : 'none',
+                    transitionDuration: isHovered ? '200ms' : '3500ms',
+                    transitionTimingFunction: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
                   }}
                 >
                   {/* Darker Gradient Overlay on Hover */}
@@ -82,7 +111,13 @@ export const InterventionType: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent pointer-events-none rounded-sm" />
                   )}
 
-                  <div className={`flex flex-col items-center justify-center transition-transform duration-200`}>
+                  <div className={`flex flex-col items-center justify-center transition-all`}
+                       style={{ 
+                         opacity: isVisible ? 1 : 0,
+                         transform: isVisible ? 'scale(1)' : 'scale(0.5)',
+                         transitionDuration: '3500ms',
+                         transitionTimingFunction: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
+                       }}>
                     <span className={`text-[12px] font-black ${isUnavailable ? 'text-slate-500' : 'text-white drop-shadow-md'} ${isHovered ? 'scale-110' : ''}`}>
                       {isUnavailable ? 'NA' : `${value}%`}
                     </span>

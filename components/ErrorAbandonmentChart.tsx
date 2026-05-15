@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   BarChart,
   Bar,
@@ -25,8 +25,32 @@ interface ErrorAbandonmentChartProps {
   data: FailureData[];
 }
 
+
 export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ data }) => {
-  const [hoveredCategory, setHoveredCategory] = React.useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (chartRef.current) {
+      observer.observe(chartRef.current);
+    }
+
+    return () => {
+      if (chartRef.current) {
+        observer.unobserve(chartRef.current);
+      }
+    };
+  }, []);
 
   const getBaseColor = (name: string) => {
     switch (name.toLowerCase()) {
@@ -43,7 +67,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
   };
 
   return (
-    <div className="w-full h-[200px]">
+    <div ref={chartRef} className="w-full h-[200px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}
@@ -129,22 +153,28 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
             }}
           />
           <Bar 
+            key={`bar-errors-animated-${isVisible}`}
             dataKey="errors" 
             name="Detected Errors" 
             radius={[4, 4, 0, 0]} 
             barSize={25}
-            isAnimationActive={false}
+            isAnimationActive={isVisible}
+            animationDuration={3500}
+            animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
           >
             {data.map((entry, index) => (
               <Cell key={`cell-error-${index}`} fill={getBaseColor(entry.name)} />
             ))}
           </Bar>
           <Bar 
+            key={`bar-abandonment-animated-${isVisible}`}
             dataKey="abandonment" 
             name="Abandonment" 
             radius={[4, 4, 0, 0]} 
             barSize={25}
-            isAnimationActive={false}
+            isAnimationActive={isVisible}
+            animationDuration={3500}
+            animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
           >
             {data.map((entry, index) => (
               <Cell 

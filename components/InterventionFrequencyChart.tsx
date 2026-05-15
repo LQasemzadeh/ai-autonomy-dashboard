@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ComposedChart,
   Bar,
@@ -26,6 +26,30 @@ const data: FrequencyData[] = [
 ];
 
 export const InterventionFrequencyChart: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (chartRef.current) {
+      observer.observe(chartRef.current);
+    }
+
+    return () => {
+      if (chartRef.current) {
+        observer.unobserve(chartRef.current);
+      }
+    };
+  }, []);
+
   const getConditionColor = (name: string) => {
     switch (name) {
       case 'Manual': return COLORS.manual;
@@ -36,7 +60,7 @@ export const InterventionFrequencyChart: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-[200px]">
+    <div ref={chartRef} className="w-full h-[200px]">
       <div className="mb-4">
         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
           Median number of interventions per started session
@@ -82,9 +106,12 @@ export const InterventionFrequencyChart: React.FC = () => {
           />
           {/* Baseline - Thin horizontal line */}
           <Bar 
+            key={`bar-animated-${isVisible}`}
             dataKey="count" 
             barSize={2} 
-            isAnimationActive={false}
+            isAnimationActive={isVisible}
+            animationDuration={3500}
+            animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
           >
             {data.map((entry, index) => (
               <Cell key={`cell-line-${index}`} fill={getConditionColor(entry.name)} fillOpacity={0.7} />
@@ -92,8 +119,11 @@ export const InterventionFrequencyChart: React.FC = () => {
           </Bar>
           {/* Dot - Larger colored circle at the value */}
           <Scatter 
+            key={`scatter-animated-${isVisible}`}
             dataKey="count" 
-            isAnimationActive={false}
+            isAnimationActive={isVisible}
+            animationDuration={3500}
+            animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
             shape={(props: any) => {
               const { cx, cy, payload } = props;
               const color = getConditionColor(payload.name);
