@@ -9,15 +9,14 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
-  LabelList,
+  Label,
 } from 'recharts';
 import { COLORS } from '@/lib/colors';
 
 const data = [
-  { name: 'Manual', value: 27.42 },
-  { name: 'Assistance', value: 18.44 },
-  { name: 'Execution', value: 10.79 },
+  { name: 'Manual', completionTime: 27.42 },
+  { name: 'Assistance', completionTime: 18.44 },
+  { name: 'Execution', completionTime: 10.79 },
 ];
 
 export const CompletionTimeLineChart = () => {
@@ -55,35 +54,53 @@ export const CompletionTimeLineChart = () => {
   };
 
   return (
-    <div ref={chartRef} className="h-full w-full">
+    <div ref={chartRef} className="w-full h-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
-          margin={{ top: 30, right: 30, left: -20, bottom: 20 }}
+          margin={{ top: 20, right: 30, left: -15, bottom: 5 }}
         >
+          <defs>
+            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor={COLORS.manual} stopOpacity={0.8} />
+              <stop offset="50%" stopColor={COLORS.assistance} stopOpacity={0.8} />
+              <stop offset="100%" stopColor={COLORS.execution} stopOpacity={0.8} />
+            </linearGradient>
+          </defs>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
           <XAxis 
             dataKey="name" 
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12, fontWeight: 600 }}
-            dy={15}
+            tick={{ fill: '#64748b', fontSize: 10, fontWeight: 700 }}
+            dy={10}
+            padding={{ left: 30, right: 30 }}
           />
           <YAxis 
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 500 }}
-            domain={[0, 35]}
-            label={{ value: 'Seconds (s)', angle: -90, position: 'insideLeft', offset: 10, fill: '#94a3b8', fontSize: 10 }}
-          />
+            tick={{ fill: '#64748b', fontSize: 9, fontWeight: 700 }}
+            unit="s"
+          >
+            <Label 
+              value="Seconds (s)" 
+              angle={-90} 
+              position="insideLeft" 
+              style={{ textAnchor: 'middle', fill: '#64748b', fontSize: 9, fontWeight: 700 }} 
+            />
+          </YAxis>
           <Tooltip
             content={({ active, payload, label }) => {
               if (active && payload && payload.length) {
                 const color = getConditionColor(label);
                 return (
-                  <div className="bg-white p-2.5 rounded-lg shadow-lg border border-slate-100 text-[11px] font-bold">
-                    <p style={{ color }} className="uppercase mb-1">{label}</p>
-                    <p className="text-slate-600">Median: {payload[0].value}s</p>
+                  <div className="bg-white p-2 rounded-lg shadow-lg border-none text-[11px] font-semibold">
+                    <p style={{ color }}>{label.toUpperCase()}</p>
+                    {payload.map((entry: any, index: number) => (
+                      <p key={index} className="text-slate-600">
+                        Median: {entry.value}s
+                      </p>
+                    ))}
                   </div>
                 );
               }
@@ -92,50 +109,49 @@ export const CompletionTimeLineChart = () => {
           />
           <Line
             key={`line-animated-${isVisible}`}
-            type="monotone"
-            dataKey="value"
-            stroke="#94a3b8"
-            strokeWidth={2}
+            type="linear"
+            dataKey="completionTime"
+            stroke="url(#lineGradient)"
+            strokeWidth={3}
             strokeDasharray="5 5"
-            dot={(props) => {
-              const { cx, cy, payload } = props;
-              return (
-                <circle
-                  cx={cx}
-                  cy={cy}
-                  r={6}
-                  fill="white"
-                  stroke={getConditionColor(payload.name)}
-                  strokeWidth={3}
-                />
-              );
-            }}
-            activeDot={{ r: 8, strokeWidth: 0, fill: '#334155' }}
             isAnimationActive={isVisible}
             animationDuration={3500}
             animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
-          >
-            <LabelList 
-              dataKey="value" 
-              position="top" 
-              offset={15}
-              content={(props: any) => {
-                const { x, y, value } = props;
-                return (
-                  <text 
-                    x={x} 
-                    y={y - 10} 
-                    fill="#475569" 
-                    fontSize={12} 
-                    fontWeight={700} 
-                    textAnchor="middle"
-                  >
-                    {value}s
-                  </text>
-                );
-              }}
-            />
-          </Line>
+            dot={(props: any) => {
+              const { cx, cy, payload } = props;
+              const color = getConditionColor(payload.name);
+              return (
+                <circle 
+                  key={`dot-${payload.name}`}
+                  cx={cx} 
+                  cy={cy} 
+                  r={4} 
+                  fill={color} 
+                  stroke="#fff" 
+                  strokeWidth={2} 
+                />
+              );
+            }}
+            activeDot={{ r: 6, strokeWidth: 0 }}
+            name="Median Time"
+            label={(props: any) => {
+              const { x, y, value, index } = props;
+              const color = getConditionColor(data[index].name);
+              return (
+                <text 
+                  x={x} 
+                  y={y} 
+                  dy={-10} 
+                  fill={color} 
+                  fontSize={10} 
+                  fontWeight={800} 
+                  textAnchor="middle"
+                >
+                  {value}s
+                </text>
+              );
+            }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
