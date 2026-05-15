@@ -25,7 +25,7 @@ const menuItems = [
     icon: BarChart3, 
     href: '#',
     subItems: [
-      { name: 'Completion Time', icon: Clock, href: '#' },
+      { name: 'Completion Time', icon: Clock, href: '/performance/completion-time' },
       { name: 'Detected Error', icon: Skull, href: '#' },
       { name: 'Abandonment', icon: XCircle, href: '#' },
     ]
