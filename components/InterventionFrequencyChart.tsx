@@ -110,7 +110,7 @@ export const InterventionFrequencyChart: React.FC = () => {
             dataKey="count" 
             barSize={2} 
             isAnimationActive={isVisible}
-            animationDuration={3500}
+            animationDuration={2000}
             animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
           >
             {data.map((entry, index) => (
@@ -122,7 +122,7 @@ export const InterventionFrequencyChart: React.FC = () => {
             key={`scatter-animated-${isVisible}`}
             dataKey="count" 
             isAnimationActive={isVisible}
-            animationDuration={3500}
+            animationDuration={2000}
             animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
             shape={(props: any) => {
               const { cx, cy, payload } = props;

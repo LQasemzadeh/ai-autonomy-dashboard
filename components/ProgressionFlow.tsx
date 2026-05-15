@@ -68,7 +68,7 @@ const Stage: React.FC<StageProps> = ({ label, value, percentage, color, ringColo
             strokeDasharray={circumference + ' ' + circumference}
             style={{ 
               strokeDashoffset,
-              transition: 'stroke-dashoffset 3.5s cubic-bezier(0.1, 0.9, 0.2, 1)'
+              transition: 'stroke-dashoffset 2s cubic-bezier(0.1, 0.9, 0.2, 1)'
             }}
             strokeLinecap="round"
             r={normalizedRadius}
