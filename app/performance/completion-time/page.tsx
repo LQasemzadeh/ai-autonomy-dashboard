@@ -41,42 +41,31 @@ export default function CompletionTimeAnalysis() {
           <h1 className="text-3xl font-bold text-white tracking-tight">Completion Time Analysis</h1>
           <p className="text-lg text-slate-300 mt-2 font-medium">Analysis of task execution duration across AI autonomy conditions.</p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fastest Median Time</p>
-                <Zap size={14} className="text-emerald-400" />
-              </div>
-              <p className="text-2xl font-bold text-white">10.79s</p>
-              <p className="text-[11px] text-emerald-400 font-medium">Execution condition</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Slowest Median Time</p>
-                <Clock size={14} className="text-blue-400" />
-              </div>
-              <p className="text-2xl font-bold text-white">27.42s</p>
-              <p className="text-[11px] text-blue-400 font-medium">Manual condition</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Statistical Significance</p>
-                <TrendingDown size={14} className="text-purple-400" />
-              </div>
-              <p className="text-2xl font-bold text-white">p &lt; .001</p>
-              <p className="text-[11px] text-purple-400 font-medium">Kruskal–Wallis test</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Effect Size</p>
-                <BarChart2 size={14} className="text-orange-400" />
-              </div>
-              <p className="text-2xl font-bold text-white">ε² = .186</p>
-              <p className="text-[11px] text-orange-400 font-medium">Relatively large effect</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+            <KPICard 
+              label="Fastest Median Time" 
+              value="10.79s" 
+              icon={Zap}
+              gradient="none"
+            />
+            <KPICard 
+              label="Slowest Median Time" 
+              value="27.42s" 
+              icon={Clock}
+              gradient="none"
+            />
+            <KPICard 
+              label="Statistical Significance" 
+              value="p < .001" 
+              icon={TrendingDown}
+              gradient="none"
+            />
+            <KPICard 
+              label="Effect Size" 
+              value="ε² = .186" 
+              icon={BarChart2}
+              gradient="none"
+            />
           </div>
         </div>
       </div>
