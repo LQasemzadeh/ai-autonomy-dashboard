@@ -54,7 +54,7 @@ export const CompletionTimeLineChart = () => {
   };
 
   return (
-    <div ref={chartRef} className="w-full h-full">
+    <div ref={chartRef} className="w-full h-[200px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}

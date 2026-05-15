@@ -76,7 +76,7 @@ export default function CompletionTimeAnalysis() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 flex flex-col gap-4">
             <DashboardCard title="Median Completion Time Trend">
-              <div className="h-[300px] py-4">
+              <div className="h-[200px] py-4">
                 <CompletionTimeLineChart />
               </div>
             </DashboardCard>
