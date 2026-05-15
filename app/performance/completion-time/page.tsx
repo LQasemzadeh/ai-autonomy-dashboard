@@ -40,37 +40,38 @@ export default function CompletionTimeAnalysis() {
         <div className="max-w-[1400px] mx-auto">
           <h1 className="text-3xl font-bold text-white tracking-tight">Completion Time Analysis</h1>
           <p className="text-lg text-slate-300 mt-2 font-medium">Analysis of task execution duration across AI autonomy conditions.</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            <KPICard 
-              label="Fastest Median Time" 
-              value="10.79s" 
-              icon={Zap}
-              gradient="none"
-            />
-            <KPICard 
-              label="Slowest Median Time" 
-              value="27.42s" 
-              icon={Clock}
-              gradient="none"
-            />
-            <KPICard 
-              label="Statistical Significance" 
-              value="p < .001" 
-              icon={TrendingDown}
-              gradient="none"
-            />
-            <KPICard 
-              label="Effect Size" 
-              value="ε² = .186" 
-              icon={BarChart2}
-              gradient="none"
-            />
-          </div>
         </div>
       </div>
+      
+      <div className="px-8 max-w-[1400px] mx-auto w-full -mt-12 space-y-8 pb-12">
+        {/* SUMMARY CARDS ROW */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <KPICard 
+            label="Fastest Median Time" 
+            value="10.79s" 
+            icon={Zap}
+            gradient="none"
+          />
+          <KPICard 
+            label="Slowest Median Time" 
+            value="27.42s" 
+            icon={Clock}
+            gradient="none"
+          />
+          <KPICard 
+            label="Statistical Significance" 
+            value="p < .001" 
+            icon={TrendingDown}
+            gradient="none"
+          />
+          <KPICard 
+            label="Effect Size" 
+            value="ε² = .186" 
+            icon={BarChart2}
+            gradient="none"
+          />
+        </div>
 
-      <div className="px-8 max-w-[1400px] mx-auto w-full -mt-12 space-y-6 pb-12">
         {/* SECTION 1 — COMPLETION TIME OVERVIEW */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 flex flex-col gap-4">
