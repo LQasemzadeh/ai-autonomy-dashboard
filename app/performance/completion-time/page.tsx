@@ -79,16 +79,15 @@ export default function CompletionTimeAnalysis() {
               <div className="h-[200px] py-4">
                 <CompletionTimeLineChart />
               </div>
-            </DashboardCard>
-            
-            <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-4 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <TrendingDown className="w-4 h-4 text-blue-600" />
+              <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <TrendingDown className="w-4 h-4 text-blue-500" />
+                </div>
+                <p className="text-[13px] text-slate-600 font-medium">
+                  Completion time decreased progressively as AI execution autonomy increased.
+                </p>
               </div>
-              <p className="text-[13px] text-blue-800 font-medium">
-                Completion time decreased progressively as AI execution autonomy increased.
-              </p>
-            </div>
+            </DashboardCard>
           </div>
 
           <div className="lg:col-span-5">
