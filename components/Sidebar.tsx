@@ -5,7 +5,6 @@ import {
   LayoutDashboard, 
   Users, 
   BarChart3, 
-  AlertTriangle, 
   HandMetal, 
   Database, 
   BookOpen,
@@ -31,7 +30,6 @@ const menuItems = [
       { name: 'Abandonment', icon: XCircle, href: '#' },
     ]
   },
-  { name: 'Errors & Abandonment', icon: AlertTriangle, href: '#' },
   { name: 'Intervention Behavior', icon: HandMetal, href: '#' },
   { name: 'Data Explorer', icon: Database, href: '#' },
   { name: 'Methodology', icon: BookOpen, href: '#' },
