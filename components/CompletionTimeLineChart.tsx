@@ -62,9 +62,9 @@ export const CompletionTimeLineChart = () => {
         >
           <defs>
             <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={COLORS.manual} stopOpacity={0.8} />
-              <stop offset="50%" stopColor={COLORS.assistance} stopOpacity={0.8} />
-              <stop offset="100%" stopColor={COLORS.execution} stopOpacity={0.8} />
+              <stop offset="0%" stopColor={COLORS.manual} stopOpacity={1} />
+              <stop offset="50%" stopColor={COLORS.assistance} stopOpacity={1} />
+              <stop offset="100%" stopColor={COLORS.execution} stopOpacity={1} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />

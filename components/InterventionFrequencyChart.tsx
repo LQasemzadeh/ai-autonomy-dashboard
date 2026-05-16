@@ -114,7 +114,7 @@ export const InterventionFrequencyChart: React.FC = () => {
             animationEasing="cubic-bezier(0.1, 0.9, 0.2, 1)"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-line-${index}`} fill={getConditionColor(entry.name)} fillOpacity={0.7} />
+              <Cell key={`cell-line-${index}`} fill={getConditionColor(entry.name)} fillOpacity={1} />
             ))}
           </Bar>
           {/* Dot - Larger colored circle at the value */}
@@ -129,7 +129,7 @@ export const InterventionFrequencyChart: React.FC = () => {
               const color = getConditionColor(payload.name);
               return (
                 <g>
-                  <circle cx={cx} cy={cy} r={6} fill={color} />
+                  <circle cx={cx} cy={cy} r={6} fill={color} stroke="#fff" strokeWidth={1} />
                   <text 
                     x={cx + 12} 
                     y={cy} 

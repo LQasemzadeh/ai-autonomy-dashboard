@@ -91,8 +91,8 @@ export default function CompletionTimeAnalysis() {
           </div>
 
           <div className="lg:col-span-5">
-            <DashboardCard title="Descriptive Statistics (Seconds)">
-              <div className="overflow-hidden mt-2">
+            <DashboardCard title="Descriptive Statistics">
+              <div className="overflow-hidden">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-100">
@@ -132,13 +132,10 @@ export default function CompletionTimeAnalysis() {
 
         {/* SECTION 2 — DISTRIBUTION ANALYSIS */}
         <DashboardCard title="Completion Time Distribution">
-          <div className="px-12 py-4">
-            <div className="flex items-center justify-between mb-6">
-              <p className="text-[11px] text-slate-500 font-medium italic">Boxplot with jittered data points (N=160)</p>
-            </div>
+          <div className="px-16 pt-0 pb-2">
             <CompletionTimeBoxPlot />
           </div>
-          <div className="mt-4 mb-2 mx-auto max-w-[500px] p-2 bg-emerald-50/50 border border-emerald-100 rounded-lg flex items-center justify-center gap-2">
+          <div className="mt-2 mb-2 mx-auto max-w-[500px] p-2 bg-emerald-50/50 border border-emerald-100 rounded-lg flex items-center justify-center gap-2">
             <Info className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <p className="text-[12px] text-emerald-800 font-medium leading-snug">
               Execution showed the lowest and most compact completion-time distribution.
@@ -149,7 +146,7 @@ export default function CompletionTimeAnalysis() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* SECTION 3 — OUTLIER INSPECTION */}
           <DashboardCard title="Outlier Detection Summary">
-            <div className="grid grid-cols-2 gap-4 py-2">
+            <div className="grid grid-cols-2 gap-4">
               <div className="p-3 rounded-lg bg-slate-50 border border-slate-100">
                 <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total completed sessions</p>
                 <p className="text-xl font-bold text-slate-800">109</p>
@@ -181,7 +178,7 @@ export default function CompletionTimeAnalysis() {
           {/* SECTION 4 — STATISTICAL RESULTS */}
           <div className="flex flex-col gap-6">
             <DashboardCard title="Kruskal–Wallis Result">
-              <div className="flex items-center justify-between p-2">
+              <div className="flex items-center justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-8">
                     <div>
@@ -208,7 +205,7 @@ export default function CompletionTimeAnalysis() {
             </DashboardCard>
 
             <DashboardCard title="Effect Size">
-              <div className="p-2">
+              <div>
                 <div className="flex items-baseline justify-between mb-2">
                   <p className="text-2xl font-black text-slate-800">ε² = .186</p>
                   <p className="text-xs font-bold text-orange-600 uppercase">Relatively large effect</p>
@@ -228,7 +225,7 @@ export default function CompletionTimeAnalysis() {
 
         {/* SECTION 5 — POST-HOC COMPARISON */}
         <DashboardCard title="Post-hoc Pairwise Comparisons">
-          <div className="overflow-hidden mt-2">
+          <div className="overflow-hidden">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-100">

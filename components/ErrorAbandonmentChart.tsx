@@ -117,7 +117,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
                       const isSolid = entry.name === 'Detected Errors';
                       const labelText = isSolid ? 'Detected Errors (' : 'Abandonment (';
                       const suffix = isSolid ? 'Solid)' : 'Muted)';
-                      const suffixStyle = isSolid ? { color } : { color, opacity: 0.6 };
+                      const suffixStyle = isSolid ? { color } : { color, opacity: 0.8 };
                       return (
                         <p key={index} className="text-slate-600">
                           {labelText}
@@ -143,7 +143,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
               const labelText = isSolid ? 'Detected Errors (' : 'Abandonment (';
               const suffix = isSolid ? 'Solid)' : 'Muted)';
               const hoverColor = getHoverColor();
-              const suffixStyle = isSolid ? { color: hoverColor } : { color: hoverColor, opacity: 0.6 };
+              const suffixStyle = isSolid ? { color: hoverColor } : { color: hoverColor, opacity: 0.8 };
               return (
                 <span style={{ color: '#475569', marginLeft: '4px' }}>
                   {labelText}
@@ -180,7 +180,7 @@ export const ErrorAbandonmentChart: React.FC<ErrorAbandonmentChartProps> = ({ da
               <Cell 
                 key={`cell-abandonment-${index}`} 
                 fill={getBaseColor(entry.name)} 
-                fillOpacity={0.3} 
+                fillOpacity={0.5} 
               />
             ))}
           </Bar>

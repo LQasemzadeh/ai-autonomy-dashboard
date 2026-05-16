@@ -82,7 +82,7 @@ export const InterventionType: React.FC = () => {
               
               // Gradient calculation: high value = more saturated/stronger
               const intensity = numericValue / 100;
-              const baseOpacity = isUnavailable ? 1 : 0.15 + (intensity * 0.85);
+              const baseOpacity = isUnavailable ? 1 : 1;
               
               // Animation logic
               const opacity = isVisible ? baseOpacity : 0;
