@@ -50,24 +50,32 @@ export default function CompletionTimeAnalysis() {
             label="Fastest Median Time" 
             value="10.79s" 
             icon={Zap}
+            iconColor={COLORS.execution}
+            iconBg={`${COLORS.execution}1F`}
             gradient="none"
           />
           <KPICard 
             label="Slowest Median Time" 
             value="27.42s" 
             icon={Clock}
+            iconColor={COLORS.manual}
+            iconBg={`${COLORS.manual}1F`}
             gradient="none"
           />
           <KPICard 
             label="Statistical Significance" 
             value="p < .001" 
             icon={TrendingDown}
+            iconColor={COLORS.assistance}
+            iconBg={`${COLORS.assistance}1F`}
             gradient="none"
           />
           <KPICard 
             label="Effect Size" 
             value="ε² = .186" 
             icon={BarChart2}
+            iconColor="#F59E0B"
+            iconBg="rgba(245, 158, 11, 0.12)"
             gradient="none"
           />
         </div>

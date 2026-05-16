@@ -1,8 +1,8 @@
 export const COLORS = {
   // Condition colors
-  manual: '#5D9CEC',
-  assistance: '#8B5CF6',
-  execution: '#43D39E',
+  manual: '#4A90E2', // Richer Blue
+  assistance: '#7C3AED', // Deeper Violet
+  execution: '#22C55E', // Stronger Green
 
   // Outcome / metric colors
   success: '#10B981',     // green

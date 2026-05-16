@@ -104,38 +104,38 @@ export const CompletionTimeBoxPlot = () => {
                 <div className="relative w-28 h-full flex flex-col items-center">
                   {/* Top Whisker (Q3 to Max) */}
                   <div 
-                    className="absolute w-[1.5px] bg-slate-900 transition-all duration-700 delay-700"
+                    className="absolute w-[1.5px] bg-slate-400 transition-all duration-700 delay-700"
                     style={{ 
                       top: `${getY(isVisible ? item.max : item.q3)}%`, 
                       height: isVisible ? `${(item.max - item.q3) / maxVal * 100}%` : '0%',
-                      opacity: isVisible ? 1 : 0 
+                      opacity: isVisible ? 0.7 : 0 
                     }}
                   />
                   {/* Top Cap */}
                   <div 
-                    className="absolute w-8 h-[1.5px] bg-slate-900 transition-all duration-500 delay-[1400ms]"
+                    className="absolute w-8 h-[1.5px] bg-slate-400 transition-all duration-500 delay-[1400ms]"
                     style={{ 
                       top: `${getY(isVisible ? item.max : item.q3)}%`,
-                      opacity: isVisible ? 1 : 0,
+                      opacity: isVisible ? 0.7 : 0,
                       transform: `scaleX(${isVisible ? 1 : 0})`
                     }}
                   />
 
                   {/* Bottom Whisker (Q1 to Min) */}
                   <div 
-                    className="absolute w-[1.5px] bg-slate-900 transition-all duration-700 delay-700"
+                    className="absolute w-[1.5px] bg-slate-400 transition-all duration-700 delay-700"
                     style={{ 
                       top: `${getY(item.q1)}%`, 
                       height: isVisible ? `${(item.q1 - item.min) / maxVal * 100}%` : '0%',
-                      opacity: isVisible ? 1 : 0 
+                      opacity: isVisible ? 0.7 : 0 
                     }}
                   />
                   {/* Bottom Cap */}
                   <div 
-                    className="absolute w-8 h-[1.5px] bg-slate-900 transition-all duration-500 delay-[1400ms]"
+                    className="absolute w-8 h-[1.5px] bg-slate-400 transition-all duration-500 delay-[1400ms]"
                     style={{ 
                       top: `${getY(isVisible ? item.min : item.q1)}%`,
-                      opacity: isVisible ? 1 : 0,
+                      opacity: isVisible ? 0.7 : 0,
                       transform: `scaleX(${isVisible ? 1 : 0})`
                     }}
                   />
@@ -147,7 +147,7 @@ export const CompletionTimeBoxPlot = () => {
                       top: `${getY(isVisible ? item.q3 : item.median)}%`, 
                       height: isVisible ? `${(item.q3 - item.q1) / maxVal * 100}%` : '0%',
                       backgroundColor: item.color,
-                      border: `1.5px solid #1a1a1a`,
+                      border: `1.5px solid #475569`, // slate-600
                       opacity: isVisible ? 1 : 0,
                       transitionTimingFunction: 'cubic-bezier(0.1, 0.9, 0.2, 1)'
                     }}
@@ -155,7 +155,7 @@ export const CompletionTimeBoxPlot = () => {
 
                   {/* Median Line */}
                   <div 
-                    className="absolute w-full h-[3px] bg-slate-900 z-10 transition-all duration-[2500ms]"
+                    className="absolute w-full h-[3px] bg-slate-700 z-10 transition-all duration-[2500ms]"
                     style={{ 
                       top: `${getY(item.median)}%`,
                       opacity: isVisible ? 1 : 0,
@@ -167,12 +167,12 @@ export const CompletionTimeBoxPlot = () => {
                   {item.points.map((pt, pIdx) => (
                     <div 
                       key={pIdx}
-                      className="absolute w-[5px] h-[5px] rounded-full border border-black transition-all duration-[1200ms]"
+                      className="absolute w-[4.5px] h-[4.5px] rounded-full border border-slate-900 transition-all duration-[1200ms]"
                       style={{ 
                         top: `${getY(isVisible ? pt : item.median)}%`,
                         left: `${50 + (isVisible ? jitterValues[idx][pIdx] : 0) * 100}%`,
-                        backgroundColor: '#1a1a1a',
-                        opacity: isVisible ? 0.7 : 0,
+                        backgroundColor: '#000000',
+                        opacity: isVisible ? 0.55 : 0,
                         transform: `translate(-50%, -50%) scale(${isVisible ? 1 : 0})`,
                         transitionDelay: `${pIdx * 8}ms`,
                         transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'

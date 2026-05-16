@@ -11,6 +11,8 @@ interface KPICardProps {
     isPositive: boolean;
   };
   icon?: React.ElementType;
+  iconColor?: string;
+  iconBg?: string;
   gradient?: 'blue' | 'purple' | 'green' | 'none';
 }
 
@@ -21,6 +23,8 @@ export const KPICard: React.FC<KPICardProps> = ({
   subtitle, 
   trend, 
   icon: Icon,
+  iconColor,
+  iconBg,
   gradient = 'none'
 }) => {
   const isSuccessMetric = label.toLowerCase().includes('success');
@@ -31,6 +35,7 @@ export const KPICard: React.FC<KPICardProps> = ({
   const isNeutralMetric = label.toLowerCase().includes('time') || label.toLowerCase().includes('participants') || label.toLowerCase().includes('sessions');
 
   const getIconColors = () => {
+    if (iconColor && iconBg) return { color: iconColor, bg: iconBg };
     if (gradient !== 'none') return { color: '#FFFFFF', bg: 'rgba(255, 255, 255, 0.25)' };
     if (isSuccessMetric) return { color: COLORS.success, bg: 'rgba(16, 185, 129, 0.12)' };
     if (isErrorMetric) return { color: COLORS.error, bg: 'rgba(244, 63, 94, 0.12)' };
@@ -39,6 +44,9 @@ export const KPICard: React.FC<KPICardProps> = ({
     if (label.toLowerCase().includes('sessions')) return { color: '#2563EB', bg: 'rgba(37, 99, 235, 0.12)' };
     if (label.toLowerCase().includes('conditions')) return { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.12)' };
     if (label.toLowerCase().includes('participants')) return { color: '#1E293B', bg: 'rgba(30, 41, 59, 0.12)' };
+    if (label.toLowerCase().includes('median time')) return { color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.12)' };
+    if (label.toLowerCase().includes('statistical')) return { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.12)' };
+    if (label.toLowerCase().includes('effect size')) return { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.12)' };
     return { color: COLORS.neutral, bg: 'rgba(148, 163, 184, 0.12)' };
   };
 

@@ -12,7 +12,9 @@ import {
   ChevronRight,
   Clock,
   Skull,
-  XCircle
+  XCircle,
+  Activity,
+  Layers
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -26,18 +28,27 @@ const menuItems = [
     href: '#',
     subItems: [
       { name: 'Completion Time', icon: Clock, href: '/performance/completion-time' },
-      { name: 'Detected Error', icon: Skull, href: '#' },
+      { name: 'Detected Error', icon: Skull, href: '/performance/detected-error' },
       { name: 'Abandonment', icon: XCircle, href: '#' },
     ]
   },
-  { name: 'Intervention Behavior', icon: HandMetal, href: '#' },
+  { 
+    name: 'Intervention Behavior', 
+    icon: HandMetal, 
+    href: '#',
+    subItems: [
+      { name: 'Intervention Occurrence', icon: Activity, href: '/intervention-behavior/intervention-occurrence' },
+      { name: 'Intervention Count', icon: BarChart3, href: '/intervention-behavior/intervention-count' },
+      { name: 'Type of Intervention', icon: Layers, href: '/intervention-behavior/intervention-type' },
+    ]
+  },
   { name: 'Data Explorer', icon: Database, href: '#' },
   { name: 'Methodology', icon: BookOpen, href: '#' },
 ];
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  const [openMenus, setOpenMenus] = React.useState<string[]>(['Performance']);
+  const [openMenus, setOpenMenus] = React.useState<string[]>([]);
 
   const toggleMenu = (name: string) => {
     setOpenMenus(prev => 
@@ -51,7 +62,7 @@ export const Sidebar = () => {
     <aside className="w-56 bg-slate-900 text-slate-300 h-screen fixed left-0 top-0 flex flex-col border-r border-slate-800">
       <div className="p-5">
         <div className="flex items-center gap-2 text-white mb-6">
-          <div className="w-7 h-7 bg-indigo-500 rounded flex items-center justify-center font-semibold text-xs text-white">A</div>
+          <div className="w-7 h-7 bg-indigo-500 rounded flex items-center justify-center font-semibold text-xs text-white">AI</div>
           <span className="font-semibold text-base tracking-tight">AI Autonomy</span>
         </div>
         
