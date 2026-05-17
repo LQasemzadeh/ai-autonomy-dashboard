@@ -29,7 +29,7 @@ const menuItems = [
     subItems: [
       { name: 'Completion Time', icon: Clock, href: '/performance/completion-time' },
       { name: 'Detected Error', icon: Skull, href: '/performance/detected-error' },
-      { name: 'Abandonment', icon: XCircle, href: '#' },
+      { name: 'Abandonment', icon: XCircle, href: '/performance/abandonment' },
     ]
   },
   { 
