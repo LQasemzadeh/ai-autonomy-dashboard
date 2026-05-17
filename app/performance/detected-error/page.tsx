@@ -84,9 +84,9 @@ export default function DetectedErrorAnalysis() {
           <DashboardCard 
             title="Detected Error Rate by Condition"
           >
-            <p className="text-sm text-slate-500 mb-6 font-medium">Proportion of started sessions with at least one validation error</p>
+            <p className="text-sm text-slate-500 mb-4 font-medium">Proportion of started sessions with at least one validation error</p>
             <ErrorRateBarChart />
-            <div className="mt-6 pt-4 border-t border-slate-50 flex items-center gap-3">
+            <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
                 <Info className="w-4 h-4 text-blue-500" />
               </div>
@@ -102,7 +102,7 @@ export default function DetectedErrorAnalysis() {
           <DashboardCard 
             title="Error Presence Breakdown"
           >
-            <div className="h-[350px] py-4">
+            <div className="h-[250px] py-2">
               <ErrorPresenceStackedBar />
             </div>
           </DashboardCard>

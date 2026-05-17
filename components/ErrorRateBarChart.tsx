@@ -46,7 +46,7 @@ export const ErrorRateBarChart: React.FC = () => {
   }, []);
 
   return (
-    <div ref={chartRef} className="w-full h-[300px]">
+    <div ref={chartRef} className="w-full h-[240px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}

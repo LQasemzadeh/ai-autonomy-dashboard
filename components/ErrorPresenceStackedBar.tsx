@@ -45,13 +45,13 @@ export const ErrorPresenceStackedBar: React.FC = () => {
   }, []);
 
   return (
-    <div ref={chartRef} className="w-full h-[300px]">
+    <div ref={chartRef} className="w-full h-[240px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}
           layout="vertical"
-          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-          barSize={40}
+          margin={{ top: 10, right: 30, left: 20, bottom: 10 }}
+          barSize={32}
         >
           <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
           <XAxis 
