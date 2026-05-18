@@ -14,6 +14,7 @@ interface KPICardProps {
   iconColor?: string;
   iconBg?: string;
   gradient?: 'blue' | 'purple' | 'green' | 'none';
+  valueSize?: 'normal' | 'small' | 'thin';
 }
 
 export const KPICard: React.FC<KPICardProps> = ({ 
@@ -25,7 +26,8 @@ export const KPICard: React.FC<KPICardProps> = ({
   icon: Icon,
   iconColor,
   iconBg,
-  gradient = 'none'
+  gradient = 'none',
+  valueSize = 'normal'
 }) => {
   const isSuccessMetric = label.toLowerCase().includes('success');
   const isErrorMetric = label.toLowerCase().includes('error');
@@ -70,14 +72,16 @@ export const KPICard: React.FC<KPICardProps> = ({
     <div className={`${getGradientClass()} p-[22px] rounded-xl border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group h-[120px] flex flex-col justify-center relative`}>
       <div className="flex flex-col justify-center h-full">
         <div className="flex items-baseline gap-1.5 mb-1.5">
-          <h3 className="text-2xl font-bold text-slate-900 leading-none tracking-tight">{value}</h3>
+          <h3 className={`${valueSize === 'small' ? 'text-xl' : 'text-2xl'} ${valueSize === 'thin' ? 'font-medium' : 'font-bold'} text-slate-900 leading-none tracking-tight`}>
+            {value}
+          </h3>
           {valueLabel && (
             <span className={`text-[11px] font-medium ${isDark ? 'text-slate-700' : 'text-slate-500'} leading-none`}>
               {valueLabel}
             </span>
           )}
         </div>
-        <p className={`text-[12px] font-bold ${isDark ? 'text-[#0F172A]' : 'text-[#475569]'} tracking-[0.01em] leading-none`}>{label}</p>
+        <p className={`text-[11px] font-bold ${isDark ? 'text-[#0F172A]' : 'text-[#475569]'} tracking-[0.01em] leading-none`}>{label}</p>
         {subtitle && (
           <p className="text-[11px] mt-2.5 leading-tight">
             {(() => {

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { KPICard } from '@/components/KPICard';
 import { DashboardCard } from '@/components/DashboardCard';
-import { InterventionOccurrenceStackedBar } from '@/components/InterventionOccurrenceStackedBar';
+import { SingleConditionPieChart } from '@/components/SingleConditionPieChart';
 
 export default function InterventionOccurrence() {
   return (
@@ -32,8 +32,8 @@ export default function InterventionOccurrence() {
             value="92%" 
             subtitle="Average across conditions"
             icon={Activity}
-            iconColor="#64748b"
-            iconBg="#f1f5f9"
+            iconColor="#3B82F6"
+            iconBg="#eff6ff"
             gradient="none"
           />
           <KPICard 
@@ -41,8 +41,8 @@ export default function InterventionOccurrence() {
             value="94%" 
             subtitle="Assistance condition"
             icon={TrendingUp}
-            iconColor="#64748b"
-            iconBg="#f1f5f9"
+            iconColor="#7C3AED"
+            iconBg="#f5f3ff"
             gradient="none"
           />
           <KPICard 
@@ -50,8 +50,8 @@ export default function InterventionOccurrence() {
             value="χ² = 0.58" 
             subtitle="p = .748"
             icon={FileText}
-            iconColor="#64748b"
-            iconBg="#f1f5f9"
+            iconColor="#4A90E2"
+            iconBg="#eff6ff"
             gradient="none"
           />
           <KPICard 
@@ -59,8 +59,8 @@ export default function InterventionOccurrence() {
             value="V = 0.06" 
             subtitle="Small effect"
             icon={BarChart2}
-            iconColor="#64748b"
-            iconBg="#f1f5f9"
+            iconColor="#F97316"
+            iconBg="#fff7ed"
             gradient="none"
           />
         </div>
@@ -70,9 +70,15 @@ export default function InterventionOccurrence() {
           <DashboardCard 
             title="Intervention Occurrence Across Conditions"
           >
-            <p className="text-sm text-slate-500 mb-6 font-medium">Presence of at least one intervention during task execution</p>
-            <InterventionOccurrenceStackedBar />
-            <div className="mt-6 pt-4 border-t border-slate-50 flex items-center gap-3">
+            <p className="text-sm text-slate-500 mb-4 font-medium">Presence of at least one intervention during task execution</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-2">
+              <SingleConditionPieChart condition="Manual" rate={92} />
+              <SingleConditionPieChart condition="Assistance" rate={94} />
+              <SingleConditionPieChart condition="Execution" rate={91} />
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
                 <Info className="w-4 h-4 text-blue-500" />
               </div>
@@ -120,7 +126,7 @@ export default function InterventionOccurrence() {
               </div>
               <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                 <div className="flex items-center gap-2 mb-1">
-                  <AlertCircle className="w-4 h-4 text-slate-400" />
+                  <AlertCircle className="w-4 h-4 text-rose-500" />
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Interpretation</span>
                 </div>
                 <p className="text-sm text-slate-700 font-medium">Small effect size, indicating negligible difference between conditions.</p>
@@ -130,10 +136,10 @@ export default function InterventionOccurrence() {
         </div>
 
         {/* INTERPRETATION PANEL */}
-        <DashboardCard className="bg-white border-l-4 border-l-slate-300">
+        <DashboardCard className="bg-white border-l-4 border-l-blue-400">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
-              <FileText className="w-5 h-5 text-slate-500" />
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-blue-500" />
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-1">Research Interpretation</h3>

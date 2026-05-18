@@ -36,6 +36,7 @@ export default function InterventionTypeAnalysis() {
             iconColor={COLORS.manual}
             iconBg={`${COLORS.manual}1F`}
             gradient="none"
+            valueSize="small"
           />
           <KPICard 
             label="Dominant Type: Assist" 
@@ -45,6 +46,7 @@ export default function InterventionTypeAnalysis() {
             iconColor={COLORS.assistance}
             iconBg={`${COLORS.assistance}1F`}
             gradient="none"
+            valueSize="small"
           />
           <KPICard 
             label="Dominant Type: Exec" 
@@ -54,6 +56,7 @@ export default function InterventionTypeAnalysis() {
             iconColor={COLORS.execution}
             iconBg={`${COLORS.execution}1F`}
             gradient="none"
+            valueSize="small"
           />
           <KPICard 
             label="Key Shift" 
@@ -63,6 +66,7 @@ export default function InterventionTypeAnalysis() {
             iconColor="#F59E0B"
             iconBg="rgba(245, 158, 11, 0.12)"
             gradient="none"
+            valueSize="small"
           />
         </div>
 
@@ -103,8 +107,8 @@ export default function InterventionTypeAnalysis() {
           <h3 className="text-lg font-extrabold text-slate-900 mb-6">Type Definitions</h3>
           <div className="space-y-6">
             <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
-                <Settings className="w-5 h-5 text-slate-400" />
+              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0 border border-blue-100">
+                <Settings className="w-5 h-5 text-blue-500" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-800">Field Edit</h4>
@@ -115,8 +119,8 @@ export default function InterventionTypeAnalysis() {
             </div>
             
             <div className="flex gap-4 border-t border-slate-50 pt-6">
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
-                <ArrowRightLeft className="w-5 h-5 text-slate-400" />
+              <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0 border border-purple-100">
+                <ArrowRightLeft className="w-5 h-5 text-purple-500" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-800">Override</h4>
@@ -127,8 +131,8 @@ export default function InterventionTypeAnalysis() {
             </div>
             
             <div className="flex gap-4 border-t border-slate-50 pt-6">
-              <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center flex-shrink-0 border border-slate-100">
-                <ShieldAlert className="w-5 h-5 text-slate-400" />
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0 border border-emerald-100">
+                <ShieldAlert className="w-5 h-5 text-emerald-500" />
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-800">Suggestion Rejection</h4>
