@@ -42,7 +42,7 @@ const menuItems = [
       { name: 'Type of Intervention', icon: Layers, href: '/intervention-behavior/intervention-type' },
     ]
   },
-  { name: 'Data Explorer', icon: Database, href: '#' },
+  { name: 'Data Explorer', icon: Database, href: '/data-explorer' },
   { name: 'Methodology', icon: BookOpen, href: '#' },
 ];
 
