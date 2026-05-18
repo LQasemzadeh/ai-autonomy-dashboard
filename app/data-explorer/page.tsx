@@ -127,7 +127,7 @@ export default function DataExplorerPage() {
     <div className="flex-1 flex flex-col min-h-screen bg-slate-50">
       <Header />
       
-      <main className="p-8 max-w-[1400px] mx-auto w-full space-y-8">
+      <main className="p-8 max-w-[1600px] mx-auto w-full space-y-8">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Data Explorer</h1>
           <p className="text-slate-500 text-sm mt-1">Inspect session-level behavioral data and event logs used in the analysis.</p>
@@ -142,8 +142,8 @@ export default function DataExplorerPage() {
         </div>
 
         {/* Filter Panel */}
-        <DashboardCard className="p-4 overflow-visible">
-          <div className="flex flex-wrap items-center gap-4">
+        <DashboardCard className="overflow-visible">
+          <div className="p-4 flex flex-wrap items-center gap-4">
             <div className="relative flex-1 min-w-[240px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
               <input 
@@ -252,172 +252,174 @@ export default function DataExplorerPage() {
           </div>
 
           <DashboardCard className="overflow-hidden">
-            {activeTab === 'sessions' ? (
-              <>
-                <div className="overflow-x-auto -mx-6">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="bg-slate-50/50 border-y border-slate-100">
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Session ID</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Participant</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Condition</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Outcome</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Time</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Errors</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Interventions</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Started</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider"></th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {paginatedSessions.map((s) => (
-                        <tr 
-                          key={s.session_id} 
-                          className="hover:bg-slate-50 cursor-pointer transition-colors group"
-                          onClick={() => handleRowClick(s)}
-                        >
-                          <td className="px-6 py-4 text-sm font-bold text-slate-900">{s.session_id}</td>
-                          <td className="px-6 py-4 text-sm text-slate-500">{s.participant_id}</td>
-                          <td className="px-6 py-4">
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                              s.condition === 'Manual' ? 'bg-slate-100 text-slate-600' :
-                              s.condition === 'Assistance' ? 'bg-blue-50 text-blue-600' :
-                              'bg-indigo-50 text-indigo-600'
-                            }`}>
-                              {s.condition}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                              s.outcome === 'Completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
-                            }`}>
-                              {s.outcome}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-sm text-slate-500 text-right">{s.completion_time}m</td>
-                          <td className="px-6 py-4 text-sm text-slate-500 text-right">
-                            {s.error_count > 0 ? (
-                              <span className="text-rose-600 font-bold">{s.error_count}</span>
-                            ) : '0'}
-                          </td>
-                          <td className="px-6 py-4 text-sm text-slate-500 text-right">
-                            {s.intervention_count > 0 ? (
-                              <span className="text-blue-600 font-bold">{s.intervention_count}</span>
-                            ) : '0'}
-                          </td>
-                          <td className="px-6 py-4 text-[11px] text-slate-400">
-                            {new Date(s.started_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <ChevronRight size={16} className="text-slate-300 group-hover:text-slate-500 transition-colors" />
-                          </td>
+            <div className="p-6">
+              {activeTab === 'sessions' ? (
+                <>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50/50 border-y border-slate-100">
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Session ID</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Participant</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Condition</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Outcome</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Time</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Errors</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Interventions</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Started</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider"></th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Pagination */}
-                <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-100">
-                  <span className="text-xs text-slate-500">
-                    Showing <span className="font-bold text-slate-700">{Math.min(filteredSessions.length, (currentPage-1)*rowsPerPage + 1)}-{Math.min(filteredSessions.length, currentPage*rowsPerPage)}</span> of <span className="font-bold text-slate-700">{filteredSessions.length}</span> sessions
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button 
-                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                      disabled={currentPage === 1}
-                      className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
-                    >
-                      <ChevronRight size={18} className="rotate-180" />
-                    </button>
-                    <div className="flex items-center gap-1 mx-2">
-                      {[...Array(Math.min(5, totalPages))].map((_, i) => {
-                        let pageNum = i + 1;
-                        if (totalPages > 5 && currentPage > 3) {
-                          pageNum = currentPage - 3 + i + 1;
-                          if (pageNum > totalPages) pageNum = totalPages - (4 - i);
-                        }
-                        return (
-                          <button 
-                            key={pageNum}
-                            onClick={() => setCurrentPage(pageNum)}
-                            className={`w-7 h-7 text-xs font-bold rounded flex items-center justify-center transition-colors ${
-                              currentPage === pageNum ? 'bg-blue-600 text-white' : 'text-slate-500 hover:bg-slate-100'
-                            }`}
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {paginatedSessions.map((s) => (
+                          <tr 
+                            key={s.session_id} 
+                            className="hover:bg-slate-50 cursor-pointer transition-colors group"
+                            onClick={() => handleRowClick(s)}
                           >
-                            {pageNum}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <button 
-                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                      disabled={currentPage === totalPages}
-                      className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
-                    >
-                      <ChevronRight size={18} />
-                    </button>
+                            <td className="px-6 py-4 text-sm font-bold text-slate-900">{s.session_id}</td>
+                            <td className="px-6 py-4 text-sm text-slate-500">{s.participant_id}</td>
+                            <td className="px-6 py-4">
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                                s.condition === 'Manual' ? 'bg-slate-100 text-slate-600' :
+                                s.condition === 'Assistance' ? 'bg-blue-50 text-blue-600' :
+                                'bg-indigo-50 text-indigo-600'
+                              }`}>
+                                {s.condition}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4">
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                                s.outcome === 'Completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
+                              }`}>
+                                {s.outcome}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 text-sm text-slate-500 text-right">{s.completion_time}m</td>
+                            <td className="px-6 py-4 text-sm text-slate-500 text-right">
+                              {s.error_count > 0 ? (
+                                <span className="text-rose-600 font-bold">{s.error_count}</span>
+                              ) : '0'}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-slate-500 text-right">
+                              {s.intervention_count > 0 ? (
+                                <span className="text-blue-600 font-bold">{s.intervention_count}</span>
+                              ) : '0'}
+                            </td>
+                            <td className="px-6 py-4 text-[11px] text-slate-400">
+                              {new Date(s.started_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                              <ChevronRight size={16} className="text-slate-300 group-hover:text-slate-500 transition-colors" />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="overflow-x-auto -mx-6">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="bg-slate-50/50 border-y border-slate-100">
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Timestamp</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Session</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Participant</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Event Type</th>
-                        <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Details</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {allEventsPaginated.map((e) => (
-                        <tr key={e.id} className="hover:bg-slate-50 transition-colors">
-                          <td className="px-6 py-3 text-[11px] text-slate-500">
-                            {new Date(e.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                          </td>
-                          <td className="px-6 py-3 text-xs font-bold text-slate-900">{e.sessionId}</td>
-                          <td className="px-6 py-3 text-xs text-slate-500">{e.participantId}</td>
-                          <td className="px-6 py-3">
-                            <div className="flex items-center gap-2">
-                              {getEventIcon(e.type)}
-                              <span className="text-[10px] font-bold text-slate-700">{e.type}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-3 text-xs text-slate-500 max-w-xs truncate">{e.details || '-'}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
 
-                {/* Event Pagination */}
-                <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-100">
-                  <span className="text-xs text-slate-500">
-                    Showing <span className="font-bold text-slate-700">{Math.min(filteredEvents.length, (currentPage-1)*rowsPerPage + 1)}-{Math.min(filteredEvents.length, currentPage*rowsPerPage)}</span> of <span className="font-bold text-slate-700">{filteredEvents.length}</span> events
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button 
-                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                      disabled={currentPage === 1}
-                      className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
-                    >
-                      <ChevronRight size={18} className="rotate-180" />
-                    </button>
-                    <button 
-                      onClick={() => setCurrentPage(prev => Math.min(Math.ceil(filteredEvents.length / rowsPerPage), prev + 1))}
-                      disabled={currentPage === Math.ceil(filteredEvents.length / rowsPerPage)}
-                      className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
-                    >
-                      <ChevronRight size={18} />
-                    </button>
+                  {/* Pagination */}
+                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-100">
+                    <span className="text-xs text-slate-500">
+                      Showing <span className="font-bold text-slate-700">{Math.min(filteredSessions.length, (currentPage-1)*rowsPerPage + 1)}-{Math.min(filteredSessions.length, currentPage*rowsPerPage)}</span> of <span className="font-bold text-slate-700">{filteredSessions.length}</span> sessions
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button 
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
+                      >
+                        <ChevronRight size={18} className="rotate-180" />
+                      </button>
+                      <div className="flex items-center gap-1 mx-2">
+                        {[...Array(Math.min(5, totalPages))].map((_, i) => {
+                          let pageNum = i + 1;
+                          if (totalPages > 5 && currentPage > 3) {
+                            pageNum = currentPage - 3 + i + 1;
+                            if (pageNum > totalPages) pageNum = totalPages - (4 - i);
+                          }
+                          return (
+                            <button 
+                              key={pageNum}
+                              onClick={() => setCurrentPage(pageNum)}
+                              className={`w-7 h-7 text-xs font-bold rounded flex items-center justify-center transition-colors ${
+                                currentPage === pageNum ? 'bg-blue-600 text-white' : 'text-slate-500 hover:bg-slate-100'
+                              }`}
+                            >
+                              {pageNum}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <button 
+                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
+                      >
+                        <ChevronRight size={18} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50/50 border-y border-slate-100">
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Timestamp</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Session</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Participant</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Event Type</th>
+                          <th className="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Details</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {allEventsPaginated.map((e) => (
+                          <tr key={e.id} className="hover:bg-slate-50 transition-colors">
+                            <td className="px-6 py-3 text-[11px] text-slate-500">
+                              {new Date(e.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                            </td>
+                            <td className="px-6 py-3 text-xs font-bold text-slate-900">{e.sessionId}</td>
+                            <td className="px-6 py-3 text-xs text-slate-500">{e.participantId}</td>
+                            <td className="px-6 py-3">
+                              <div className="flex items-center gap-2">
+                                {getEventIcon(e.type)}
+                                <span className="text-[10px] font-bold text-slate-700">{e.type}</span>
+                              </div>
+                            </td>
+                            <td className="px-6 py-3 text-xs text-slate-500 max-w-xs truncate">{e.details || '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Event Pagination */}
+                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-100">
+                    <span className="text-xs text-slate-500">
+                      Showing <span className="font-bold text-slate-700">{Math.min(filteredEvents.length, (currentPage-1)*rowsPerPage + 1)}-{Math.min(filteredEvents.length, currentPage*rowsPerPage)}</span> of <span className="font-bold text-slate-700">{filteredEvents.length}</span> events
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <button 
+                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                        className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
+                      >
+                        <ChevronRight size={18} className="rotate-180" />
+                      </button>
+                      <button 
+                        onClick={() => setCurrentPage(prev => Math.min(Math.ceil(filteredEvents.length / rowsPerPage), prev + 1))}
+                        disabled={currentPage === Math.ceil(filteredEvents.length / rowsPerPage)}
+                        className="p-1 rounded hover:bg-slate-100 disabled:opacity-30 transition-colors"
+                      >
+                        <ChevronRight size={18} />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </DashboardCard>
         </div>
 
