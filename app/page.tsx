@@ -118,6 +118,19 @@ export default function Home() {
     );
   }
 
+  if (!data && !loading) {
+    return (
+      <main className="flex-1 flex flex-col items-center justify-center p-6" style={{ backgroundColor: COLORS.background }}>
+        <div className="text-center space-y-4">
+          <Loader2 size={32} className="animate-spin mx-auto" style={{ color: COLORS.assistance }} />
+          <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest">Awaiting visualization data...</p>
+        </div>
+      </main>
+    );
+  }
+
+  const safeData = data as NonNullable<DashboardData>;
+
   return (
     <main className="flex-1 flex flex-col overflow-hidden" style={{ backgroundColor: COLORS.background }}>
       {/* Dark Hero Header */}
@@ -127,9 +140,9 @@ export default function Home() {
           <p className="text-lg text-slate-300 mt-2 font-medium">Task Performance & Intervention Behavior Analysis</p>
         </div>
       </div>
-      
+
       <div className="px-8 max-w-[1400px] mx-auto w-full -mt-12">
-        {loading ? (
+        {loading || !data ? (
           <div className="flex flex-col items-center justify-center py-32 space-y-4 bg-white rounded-xl shadow-sm border border-slate-200">
             <Loader2 size={32} className="animate-spin" style={{ color: COLORS.assistance }} />
             <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest">Awaiting visualization data...</p>
@@ -139,29 +152,29 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <KPICard 
                 label="Manual" 
-                value={data.participants.per_condition.find(p => p.mode === 'Manual')?.n_participants.toString() || "0"} 
+                value={safeData.participants.per_condition.find(p => p.mode === 'Manual')?.n_participants?.toString() || "0"} 
                 subtitle={`${sessionMetrics.manual} analyzed sessions`}
                 icon={Hand}
                 gradient="blue"
               />
               <KPICard 
                 label="Assistance" 
-                value={data.participants.per_condition.find(p => p.mode === 'Assistance')?.n_participants.toString() || "0"} 
+                value={safeData.participants.per_condition.find(p => p.mode === 'Assistance')?.n_participants?.toString() || "0"} 
                 subtitle={`${sessionMetrics.assistance} analyzed sessions`}
                 icon={Wand2}
                 gradient="purple"
               />
               <KPICard 
                 label="Execution" 
-                value={data.participants.per_condition.find(p => p.mode === 'Execution')?.n_participants.toString() || "0"} 
+                value={safeData.participants.per_condition.find(p => p.mode === 'Execution')?.n_participants?.toString() || "0"} 
                 subtitle={`${sessionMetrics.execution} analyzed sessions`}
                 icon={Rocket}
                 gradient="green"
               />
               <KPICard 
                 label="Total Study Sample" 
-                value={data.metadata.total_participants.toString()} 
-                subtitle={`${data.metadata.total_started_sessions} analyzed sessions`}
+                value={safeData.metadata.total_participants?.toString() || "0"} 
+                subtitle={`${safeData.metadata.total_started_sessions || 0} analyzed sessions`}
                 icon={Users}
               />
             </div>

@@ -48,14 +48,10 @@ const menuItems = [
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  const [openMenus, setOpenMenus] = React.useState<string[]>([]);
+  const [openMenu, setOpenMenu] = React.useState<string | null>(null);
 
   const toggleMenu = (name: string) => {
-    setOpenMenus(prev => 
-      prev.includes(name) 
-        ? prev.filter(m => m !== name) 
-        : [...prev, name]
-    );
+    setOpenMenu(prev => prev === name ? null : name);
   };
 
   return (
@@ -69,7 +65,7 @@ export const Sidebar = () => {
         <nav className="space-y-1.5">
           {menuItems.map((item) => {
             const hasSubItems = item.subItems && item.subItems.length > 0;
-            const isOpen = openMenus.includes(item.name);
+            const isOpen = openMenu === item.name;
             const isActive = pathname === item.href || (hasSubItems && item.subItems?.some(sub => pathname === sub.href));
             
             return (
@@ -94,6 +90,7 @@ export const Sidebar = () => {
                 ) : (
                   <Link
                     href={item.href}
+                    onClick={() => setOpenMenu(null)}
                     className={`group relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all duration-300 ease-in-out ${
                       isActive 
                         ? 'bg-blue-500/10 text-blue-400 font-normal shadow-sm shadow-blue-500/5' 
