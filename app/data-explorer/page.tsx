@@ -124,10 +124,10 @@ export default function DataExplorerPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-slate-50">
+    <div className="flex-1 flex flex-col min-h-screen bg-slate-50 overflow-x-hidden">
       <Header />
       
-      <main className="p-8 max-w-[1600px] mx-auto w-full space-y-8">
+      <main className="p-4 md:p-8 w-full max-w-[1400px] mx-auto space-y-8">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Data Explorer</h1>
           <p className="text-slate-500 text-sm mt-1">Inspect session-level behavioral data and event logs used in the analysis.</p>
@@ -143,21 +143,21 @@ export default function DataExplorerPage() {
 
         {/* Filter Panel */}
         <DashboardCard className="overflow-visible">
-          <div className="p-4 flex flex-wrap items-center gap-4">
-            <div className="relative flex-1 min-w-[240px]">
+          <div className="p-4 flex flex-col lg:flex-row lg:items-center gap-4">
+            <div className="relative flex-1 min-w-[200px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
               <input 
                 type="text" 
-                placeholder="Search by session_id or participant_id..." 
+                placeholder="Search session or participant..." 
                 className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-wrap items-center gap-2 flex-1">
               <select 
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full lg:w-auto bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={conditionFilter}
                 onChange={(e) => { setConditionFilter(e.target.value); setCurrentPage(1); }}
               >
@@ -168,7 +168,7 @@ export default function DataExplorerPage() {
               </select>
 
               <select 
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full lg:w-auto bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={outcomeFilter}
                 onChange={(e) => { setOutcomeFilter(e.target.value); setCurrentPage(1); }}
               >
@@ -178,7 +178,7 @@ export default function DataExplorerPage() {
               </select>
 
               <select 
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full lg:w-auto bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={errorFilter}
                 onChange={(e) => { setErrorFilter(e.target.value); setCurrentPage(1); }}
               >
@@ -188,7 +188,7 @@ export default function DataExplorerPage() {
               </select>
 
               <select 
-                className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full lg:w-auto bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={interventionFilter}
                 onChange={(e) => { setInterventionFilter(e.target.value); setCurrentPage(1); }}
               >
@@ -196,7 +196,9 @@ export default function DataExplorerPage() {
                 <option value="With intervention">With intervention</option>
                 <option value="No intervention">No intervention</option>
               </select>
+            </div>
 
+            <div className="flex items-center gap-2 ml-auto lg:ml-0">
               <button 
                 onClick={() => {
                   setSearch('');
@@ -205,13 +207,11 @@ export default function DataExplorerPage() {
                   setErrorFilter('All');
                   setInterventionFilter('All');
                 }}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-700 px-2 py-2 transition-colors"
+                className="text-xs font-semibold text-slate-500 hover:text-slate-700 px-2 py-2 transition-colors whitespace-nowrap"
               >
-                Reset Filters
+                Reset
               </button>
-            </div>
-
-            <div className="ml-auto flex items-center gap-2">
+              
               <button 
                 onClick={() => {
                   if (activeTab === 'sessions') {
@@ -220,10 +220,10 @@ export default function DataExplorerPage() {
                     exportToCSV(filteredEvents, 'events.csv');
                   }
                 }}
-                className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-sm whitespace-nowrap"
               >
                 <Download size={14} />
-                Export CSV
+                Export
               </button>
             </div>
           </div>
